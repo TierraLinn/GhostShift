@@ -3,22 +3,36 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GhostShift | Ads Disappear Like a Ghost</title>
+    <title>GhostShift | Ads Vanish Into The Void</title>
     <meta
       name="description"
       content="GhostShift is a freemium browser extension and app dashboard for automatic skip assistance on supported video platforms."
     />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#1a0b2e" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="site-body">
+    <!-- Haunting Background Effects -->
+    <div class="ghost-particles" aria-hidden="true">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+    </div>
+
+    <div class="dimensional-rift" aria-hidden="true">
+      <div class="rift-beam"></div>
+      <div class="rift-particles"></div>
+    </div>
+
     <nav class="top-nav">
       <div class="nav-inner">
-        <a class="brand brand-blue" href="./index.html" aria-label="GhostShift home">
-          <span class="zap-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>
+        <a class="brand brand-ghost" href="./index.html" aria-label="GhostShift home">
+          <span class="ghost-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2C9.79 2 8 3.79 8 6v8c0 2.21 1.79 4 4 4s4-1.79 4-4V6c0-2.21-1.79-4-4-4zM12 16c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2s2 .9 2 2v8c0 1.1-.9 2-2 2z"/></svg>
           </span>
           <span>GhostShift</span>
         </a>
@@ -30,7 +44,7 @@
         </div>
         <div class="desktop-actions">
           <a class="ghost-link" href="./signin.html">Sign In</a>
-          <a class="blue-button small" href="./install.html">Start / Install</a>
+          <a class="ghost-button small" href="./install.html">Enter The Void</a>
         </div>
         <button class="mobile-toggle" type="button" aria-label="Open menu" data-mobile-toggle>
           <span></span><span></span>
@@ -41,29 +55,29 @@
         <a href="#how-it-works">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="./dashboard.html">Dashboard</a>
-        <a class="blue-button small" href="./install.html">Start / Install</a>
+        <a class="ghost-button small" href="./install.html">Enter The Void</a>
       </div>
     </nav>
 
     <main>
-      <section class="hero-clean">
+      <section class="hero-ghost">
         <div class="content-narrow">
           <div class="platform-pill">
-            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2C9.79 2 8 3.79 8 6v8c0 2.21 1.79 4 4 4s4-1.79 4-4V6c0-2.21-1.79-4-4-4zM12 16c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2s2 .9 2 2v8c0 1.1-.9 2-2 2z"/></svg>
             Chrome - Edge - Safari - Android - iOS
           </div>
-          <h1>Ads Disappear.<br />Like a Ghost.</h1>
+          <h1>Ads Vanish.<br />Into The Void.</h1>
           <p>
-            GhostShift auto-skips visible ad controls on supported web video platforms and gives users a clean
-            dashboard for installs, trials, subscriptions, and device setup.
+            GhostShift shifts ads into another dimension. Watch without interruption as sponsored breaks disappear
+            like ghosts in the night. Your dashboard tracks every skip, every save, every victory.
           </p>
           <div class="hero-cta-row">
-            <a class="blue-button" href="./install.html">
+            <a class="ghost-button" href="./install.html">
               <svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg>
-              Get GhostShift - It's Free
+              Enter GhostShift - It's Free
             </a>
-            <a class="outline-button" href="#how-it-works">
-              See How It Works
+            <a class="outline-ghost-button" href="#interactive-demo">
+              Experience The Shift
               <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
             </a>
           </div>
@@ -77,42 +91,100 @@
           <div class="stats-grid">
             <article>
               <strong>4.2M</strong>
-              <span>Ads Skipped Today</span>
-              <small>demo network metric</small>
+              <span>Ads Banished Today</span>
+              <small>dimensional shifts completed</small>
             </article>
             <article>
               <strong>18,400</strong>
-              <span>Hours Saved</span>
-              <small>this week</small>
+              <span>Hours Reclaimed</span>
+              <small>from the void this week</small>
             </article>
             <article>
               <strong>12+</strong>
-              <span>Platforms Tracked</span>
-              <small>live and beta roadmap</small>
+              <span>Realms Connected</span>
+              <small>platform integrations</small>
             </article>
           </div>
-          <div class="interactive-stage" data-landing-demo>
-            <div class="stage-header">
-              <span><i></i>Live GhostShift preview</span>
-              <button type="button" data-demo-reset>Restart Ad</button>
+        </div>
+
+        <!-- Interactive Ghost Demo -->
+        <div class="interactive-ghost-demo" id="interactive-demo">
+          <div class="ghost-realm">
+            <div class="realm-title">
+              <span class="ghost-icon">👻</span>
+              Interactive GhostShift Realm
             </div>
-            <div class="stage-screen">
-              <div class="scan-beam"></div>
-              <div class="floating-ghost" aria-hidden="true">
-                <svg viewBox="0 0 64 64">
-                  <path d="M32 8c12.7 0 23 10.3 23 23v18.5c0 2.2-2.7 3.4-4.3 1.8L47 47.7l-3.9 3.7c-1.1 1-2.8 1-3.9 0L35.3 48l-3.9 3.4c-1.1 1-2.8 1-3.9 0L23.7 48l-3.9 3.4c-1.6 1.5-4.3.4-4.3-1.8V31C15.5 18.3 19.3 8 32 8Z" />
-                  <circle cx="25" cy="31" r="3" />
-                  <circle cx="39" cy="31" r="3" />
-                  <path d="M25 40c4.8 3.2 9.2 3.2 14 0" />
-                </svg>
+
+            <!-- Floating Interactive Ghosts -->
+            <div class="floating-ghosts">
+              <div class="interactive-ghost ghost-1" data-ghost="1">
+                <div class="ghost-body">
+                  <div class="ghost-eyes">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                  </div>
+                  <div class="ghost-mouth"></div>
+                </div>
+                <div class="ghost-trail"></div>
               </div>
-              <div class="ad-chip" data-demo-chip>Sponsored break detected</div>
-              <button class="skip-sim-button" type="button" data-demo-skip>Skip Ad</button>
-              <div class="demo-cursor" aria-hidden="true" data-demo-cursor></div>
+
+              <div class="interactive-ghost ghost-2" data-ghost="2">
+                <div class="ghost-body">
+                  <div class="ghost-eyes">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                  </div>
+                  <div class="ghost-mouth"></div>
+                </div>
+                <div class="ghost-trail"></div>
+              </div>
+
+              <div class="interactive-ghost ghost-3" data-ghost="3">
+                <div class="ghost-body">
+                  <div class="ghost-eyes">
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+                  </div>
+                  <div class="ghost-mouth"></div>
+                </div>
+                <div class="ghost-trail"></div>
+              </div>
             </div>
-            <div class="stage-footer">
-              <span data-demo-status>Scanning for visible skip button...</span>
-              <div class="stage-meter"><i data-demo-meter></i></div>
+
+            <!-- Dimensional Portal -->
+            <div class="dimensional-portal">
+              <div class="portal-ring"></div>
+              <div class="portal-core"></div>
+              <div class="portal-particles"></div>
+            </div>
+
+            <!-- Interactive Ad that gets banished -->
+            <div class="banishable-ad" data-ad-target>
+              <div class="ad-content">
+                <div class="ad-header">Sponsored Break</div>
+                <div class="ad-body">This ad will be banished...</div>
+                <button class="ad-skip-btn" data-skip-trigger>Skip Ad</button>
+              </div>
+              <div class="ad-glow"></div>
+            </div>
+
+            <!-- Ghost Cursor Follower -->
+            <div class="ghost-cursor" aria-hidden="true"></div>
+
+            <!-- Realm Stats -->
+            <div class="realm-stats">
+              <div class="stat-item">
+                <span class="stat-number" data-ads-banished>0</span>
+                <span class="stat-label">Ads Banished</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" data-ghosts-active>3</span>
+                <span class="stat-label">Ghosts Active</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" data-portal-power>87</span>
+                <span class="stat-label">Portal Power</span>
+              </div>
             </div>
           </div>
         </div>
