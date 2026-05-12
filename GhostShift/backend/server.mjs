@@ -68,12 +68,16 @@ const EMPTY_STORE = {
 
 let storeQueue = Promise.resolve();
 
-function sendJson(response, status, payload) {
+function sendJson(response, status, payload, headOnly = false) {
   response.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
-  response.end(JSON.stringify(payload));
+  if (!headOnly) {
+    response.end(JSON.stringify(payload));
+  } else {
+    response.end();
+  }
 }
 
-function sendHealth(response) {
+function sendHealth(response, headOnly = false) {
   sendJson(response, 200, {
     ok: true,
     service: "ghostshift",
@@ -84,7 +88,7 @@ function sendHealth(response) {
       plus: Boolean(PRICE_IDS.plus),
       family: Boolean(PRICE_IDS.family)
     }
-  });
+  }, headOnly);
 }
 
 async function readRequestJson(request) {
@@ -282,7 +286,7 @@ async function createCheckoutSession(request, response) {
   sendJson(response, 200, { url: payload.url, id: payload.id });
 }
 
-async function serveStatic(request, response) {
+async function serveStatic(request, response, headOnly = false) {
   const url = new URL(request.url, `http://localhost:${PORT}`);
   const requestedPath = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
   const normalized = normalize(join(ROOT, requestedPath));
@@ -296,7 +300,11 @@ async function serveStatic(request, response) {
   try {
     const file = await readFile(normalized);
     response.writeHead(200, { "Content-Type": MIME_TYPES[extname(normalized)] || "application/octet-stream" });
-    response.end(file);
+    if (!headOnly) {
+      response.end(file);
+    } else {
+      response.end();
+    }
   } catch {
     response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Not found");
@@ -305,13 +313,15 @@ async function serveStatic(request, response) {
 
 createServer(async (request, response) => {
   try {
-    if (request.method === "GET" && request.url === "/api/health") {
-      sendHealth(response);
+    const headOnly = request.method === "HEAD";
+
+    if ((request.method === "GET" || headOnly) && request.url === "/api/health") {
+      sendHealth(response, headOnly);
       return;
     }
 
-    if (request.method === "GET" && request.url === "/api/extension-config") {
-      sendJson(response, 200, EXTENSION_CONFIG);
+    if ((request.method === "GET" || headOnly) && request.url === "/api/extension-config") {
+      sendJson(response, 200, EXTENSION_CONFIG, headOnly);
       return;
     }
 
@@ -340,8 +350,8 @@ createServer(async (request, response) => {
       return;
     }
 
-    if (request.method === "GET") {
-      await serveStatic(request, response);
+    if (request.method === "GET" || headOnly) {
+      await serveStatic(request, response, headOnly);
       return;
     }
 

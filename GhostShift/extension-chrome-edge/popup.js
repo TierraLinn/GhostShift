@@ -22,9 +22,12 @@ let activeSiteKey = null;
 
 function getSiteKey(url) {
   try {
-    const host = new URL(url).hostname.replace(/^www\./, "");
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.replace(/^www\./, "");
+    const pathname = parsedUrl.pathname.toLowerCase();
     if (host.endsWith("youtube.com")) return "youtube.com";
     if (host.endsWith("facebook.com")) return "facebook.com";
+    if (pathname.includes("demo-player") || pathname.includes("install")) return "ghostshift-demo";
     if (host === "localhost" || host === "127.0.0.1") return "ghostshift-demo";
     return host;
   } catch {

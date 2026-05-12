@@ -19,10 +19,11 @@
         "https://youtube.com/*",
         "https://www.facebook.com/*",
         "https://facebook.com/*",
-        "http://localhost:8787/install.html",
-        "http://localhost:8787/demo-player.html",
-        "http://127.0.0.1:8787/install.html",
-        "http://127.0.0.1:8787/demo-player.html"
+        "http://localhost:8787/*",
+        "http://127.0.0.1:8787/*",
+        "https://ghostshift.railway.app/*",
+        "https://*.railway.app/*",
+        "https://*.onrender.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"
