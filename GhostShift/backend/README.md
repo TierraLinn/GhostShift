@@ -45,7 +45,7 @@ The demo player simulates an ad break so the browser extension can prove automat
 1. Copy the example environment file:
 
 ```bash
-cd GhostShift/backend
+cd backend
 cp .env.example .env
 ```
 

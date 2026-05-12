@@ -43,6 +43,26 @@ Key pages:
 
 The demo player simulates an ad break with a visible skip button. GhostShift should click it automatically.
 
+## Full deployment
+
+The backend supports Docker Compose. To deploy from the repository root:
+
+```bash
+cd GhostShift/GhostShift/backend
+cp .env.example .env
+# edit .env with your Stripe secret key and price IDs
+
+docker compose up -d
+```
+
+Then verify the service:
+
+```bash
+curl http://localhost:8787/api/health
+```
+
+For production, add Stripe webhook handling, a real database, hosted auth, and HTTPS.
+
 ## Mobile path
 
 GhostShift includes an installable PWA and starter native-build notes. Open `mobile-app/PWA_INSTALL.md` for phone installation steps. Native Android and iOS store builds still require Android Studio, Xcode, signing keys, and store accounts.

@@ -57,9 +57,10 @@ The backend includes Docker support in `backend/docker-compose.yml`. To deploy:
 
 1. Create `backend/.env` from `backend/.env.example`.
 2. Set `STRIPE_SECRET_KEY`, `STRIPE_PRICE_PLUS`, and `STRIPE_PRICE_FAMILY`.
-3. Run from `GhostShift/backend`:
+3. Run from the app root:
 
 ```bash
+cd backend
 docker compose up -d
 ```
 
