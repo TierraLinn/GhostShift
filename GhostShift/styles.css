@@ -1,19 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #0a0a0f;
-  --bg-2: #1a0b2e;
-  --surface: rgba(255, 255, 255, 0.05);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --line: rgba(138, 43, 226, 0.3);
-  --text: #f8f8ff;
-  --muted: #b19cd9;
-  --ghost-purple: #8a2be2;
-  --ghost-blue: #4b0082;
-  --ghost-glow: #dda0dd;
-  --portal-cyan: #00ffff;
-  --rift-energy: #ff00ff;
-  --shadow: 0 24px 80px rgba(138, 43, 226, 0.15);
-  font-family: 'Courier New', monospace;
+  --bg: #030713;
+  --bg-2: #08182c;
+  --surface: rgba(40, 69, 111, 0.18);
+  --surface-strong: rgba(28, 56, 95, 0.28);
+  --line: rgba(45, 209, 248, 0.24);
+  --text: #edf8ff;
+  --muted: #93d8ff;
+  --ghost-purple: #44d9ff;
+  --ghost-blue: #2dc8f7;
+  --ghost-glow: #a8f5ff;
+  --portal-cyan: #2dd7ff;
+  --rift-energy: #4ef0c8;
+  --shadow: 0 24px 90px rgba(29, 213, 255, 0.16);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 * {
@@ -29,10 +29,10 @@ body {
   min-width: 320px;
   color: var(--text);
   background:
-    radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(75, 0, 130, 0.15), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(221, 160, 221, 0.08), transparent 60%),
-    linear-gradient(135deg, var(--bg), #0f0a1a 40%, #1a0b2e);
+    radial-gradient(circle at 18% 22%, rgba(45, 215, 255, 0.16), transparent 22%),
+    radial-gradient(circle at 78% 78%, rgba(16, 118, 183, 0.16), transparent 30%),
+    radial-gradient(circle at 50% 50%, rgba(46, 220, 255, 0.08), transparent 60%),
+    linear-gradient(135deg, var(--bg), #050b1a 38%, #08162d 65%, #02050f);
   overflow-x: hidden;
 }
 
@@ -44,8 +44,8 @@ body::before {
   content: "";
   opacity: 0.4;
   background-image:
-    linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(45, 215, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 206, 255, 0.08) 1px, transparent 1px);
   background-size: 80px 80px;
   animation: grid-shift 20s linear infinite;
 }
@@ -2191,10 +2191,10 @@ a {
     position: relative;
     width: 100%;
     min-height: 560px;
-    background: radial-gradient(circle at 20% 20%, rgba(94, 234, 212, 0.14), transparent 20%),
-      radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12), transparent 18%),
-      linear-gradient(180deg, rgba(8, 10, 20, 0.95), rgba(12, 14, 33, 0.99));
-    border: 1px solid rgba(94, 234, 212, 0.15);
+    background: radial-gradient(circle at 20% 20%, rgba(45, 215, 255, 0.14), transparent 20%),
+      radial-gradient(circle at 82% 24%, rgba(35, 191, 255, 0.12), transparent 18%),
+      linear-gradient(180deg, rgba(7, 9, 20, 0.95), rgba(6, 10, 22, 0.99));
+    border: 1px solid rgba(45, 215, 255, 0.16);
     border-radius: 2rem;
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
     overflow: hidden;
@@ -2222,14 +2222,14 @@ a {
   }
 
   .hud-pill {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(12, 28, 53, 0.72);
     color: var(--text);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(45, 215, 255, 0.16);
   }
 
   .hud-badge {
-    background: linear-gradient(135deg, rgba(94, 234, 212, 0.18), rgba(139, 92, 246, 0.18));
-    color: var(--ghost-blue);
+    background: linear-gradient(135deg, rgba(45, 215, 255, 0.18), rgba(12, 71, 106, 0.2));
+    color: var(--portal-cyan);
   }
 
   .visual-stage {
@@ -2245,13 +2245,13 @@ a {
   .visual-panel {
     position: relative;
     min-height: 110px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 24, 46, 0.58);
+    border: 1px solid rgba(45, 215, 255, 0.14);
     border-radius: 1.4rem;
     backdrop-filter: blur(10px);
     display: grid;
     place-items: center;
-    color: var(--ghost-glow);
+    color: var(--text);
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -2261,14 +2261,14 @@ a {
 
   .visual-panel:hover {
     transform: translateY(-6px);
-    box-shadow: 0 24px 48px rgba(94, 234, 212, 0.18);
+    box-shadow: 0 24px 48px rgba(45, 215, 255, 0.18);
   }
 
   .visual-panel::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top left, rgba(94, 234, 212, 0.18), transparent 40%);
+    background: radial-gradient(circle at top left, rgba(45, 215, 255, 0.14), transparent 45%);
   }
 
   .panel-tag {
@@ -2374,10 +2374,6 @@ a {
       grid-column: auto;
       grid-row: auto;
     }
-  }
-      radial-gradient(circle at 80% 16%, rgba(83, 51, 255, 0.12), transparent 22rem),
-      radial-gradient(circle at 50% 60%, rgba(94, 234, 212, 0.06), transparent 32rem),
-      linear-gradient(180deg, #04060d 0%, #0c1021 35%, #04060d 100%);
   }
 
   .site-body::before {
@@ -2492,15 +2488,15 @@ a {
   }
 
   .ghost-button {
-    color: #090b14;
-    background: linear-gradient(135deg, var(--ghost-blue), var(--ghost-purple));
-    border: 1px solid rgba(94, 234, 212, 0.35);
-    box-shadow: 0 18px 40px rgba(94, 234, 212, 0.22);
+    color: #071123;
+    background: linear-gradient(135deg, rgba(40, 191, 255, 1), rgba(10, 118, 186, 1));
+    border: 1px solid rgba(45, 215, 255, 0.35);
+    box-shadow: 0 20px 48px rgba(29, 213, 255, 0.24);
   }
 
   .ghost-button:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 24px 50px rgba(94, 234, 212, 0.32);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 26px 58px rgba(35, 207, 255, 0.32);
   }
 
   .ghost-button.small {
@@ -2510,20 +2506,20 @@ a {
 
   .outline-ghost-button {
     color: var(--ghost-glow);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(139, 92, 246, 0.24);
+    background: rgba(28, 56, 95, 0.64);
+    border: 1px solid rgba(45, 215, 255, 0.25);
   }
 
   .outline-ghost-button:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(94, 234, 212, 0.35);
+    background: rgba(45, 215, 255, 0.09);
+    border-color: rgba(45, 215, 255, 0.45);
   }
 
   .hero-ghost {
     position: relative;
     min-height: 100vh;
     padding: 4rem 1.5rem 3rem;
-    background: linear-gradient(180deg, rgba(4, 6, 13, 0.88), rgba(6, 9, 22, 0.96));
+    background: linear-gradient(180deg, rgba(4, 8, 19, 0.96), rgba(7, 14, 35, 0.98));
     overflow: hidden;
   }
 
@@ -2650,10 +2646,10 @@ a {
     margin-top: 3rem;
     min-height: 520px;
     padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(31, 17, 67, 0.92), rgba(7, 9, 19, 0.96));
-    border: 1px solid rgba(139, 92, 246, 0.18);
+    background: radial-gradient(circle at 50% 48%, rgba(29, 183, 255, 0.12), transparent 34%), linear-gradient(135deg, rgba(10, 18, 44, 0.94), rgba(7, 11, 21, 0.98));
+    border: 1px solid rgba(45, 215, 255, 0.16);
     border-radius: 2rem;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4);
     overflow: hidden;
   }
 
@@ -2667,6 +2663,7 @@ a {
     color: var(--ghost-glow);
     font-size: 1rem;
     font-weight: 700;
+    text-shadow: 0 0 18px rgba(45, 215, 255, 0.28);
   }
 
   .ghost-icon {
@@ -2674,8 +2671,8 @@ a {
     height: 2rem;
     display: grid;
     place-items: center;
-    color: var(--ghost-blue);
-    font-size: 1.5rem;
+    color: var(--portal-cyan);
+    font-size: 1.6rem;
   }
 
   .floating-ghosts {
@@ -2686,26 +2683,29 @@ a {
   }
 
   .interactive-ghost {
-    width: 70px;
-    height: 70px;
+    width: 74px;
+    height: 74px;
     pointer-events: auto;
-    transition: transform 0.25s ease, filter 0.25s ease;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
   }
 
   .interactive-ghost:hover {
     transform: scale(1.18);
+    filter: drop-shadow(0 0 16px rgba(45, 215, 255, 0.45));
   }
 
   .ghost-body {
-    background: linear-gradient(135deg, rgba(136, 77, 255, 0.9), rgba(94, 234, 212, 0.35));
+    background: linear-gradient(135deg, rgba(46, 214, 255, 0.96), rgba(22, 123, 204, 0.5));
+    box-shadow: 0 0 30px rgba(33, 193, 255, 0.35);
   }
 
   .ghost-eyes .eye {
-    background: var(--text);
+    background: #fff;
   }
 
   .ghost-trail {
-    opacity: 0.9;
+    opacity: 0.95;
+    background: radial-gradient(circle, rgba(45, 215, 255, 0.35), transparent);
   }
 
   .dimensional-portal {
@@ -2719,11 +2719,12 @@ a {
   }
 
   .portal-ring {
-    border-color: rgba(94, 234, 212, 0.35);
+    border-color: rgba(45, 215, 255, 0.35);
+    box-shadow: 0 0 18px rgba(45, 215, 255, 0.18);
   }
 
   .portal-core {
-    background: radial-gradient(circle, rgba(94, 234, 212, 0.24), rgba(139, 92, 246, 0.22));
+    background: radial-gradient(circle, rgba(45, 215, 255, 0.28), rgba(36, 255, 199, 0.18));
   }
 
   .banishable-ad {
@@ -2732,10 +2733,10 @@ a {
     right: 8%;
     width: 240px;
     padding: 1.2rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(9, 20, 42, 0.88);
+    border: 1px solid rgba(45, 215, 255, 0.18);
     border-radius: 1.5rem;
-    box-shadow: 0 28px 58px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 28px 68px rgba(0, 0, 0, 0.35);
     cursor: pointer;
   }
 
@@ -2746,7 +2747,7 @@ a {
 
   .ad-header {
     font-weight: 800;
-    color: rgba(255, 107, 107, 0.95);
+    color: #7be4ff;
     margin-bottom: 0.75rem;
   }
 
@@ -2756,18 +2757,18 @@ a {
   }
 
   .ad-skip-btn {
-    background: linear-gradient(135deg, #ff375f, #ff6cb6);
-    box-shadow: 0 20px 40px rgba(255, 99, 166, 0.25);
+    background: linear-gradient(135deg, #1ef3ff, #1d7ff3);
+    box-shadow: 0 20px 40px rgba(45, 215, 255, 0.22);
   }
 
   .ad-skip-btn:hover {
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
 
   .ghost-cursor {
     width: 22px;
     height: 22px;
-    background: radial-gradient(circle, rgba(94, 234, 212, 0.9), rgba(94, 234, 212, 0.1));
+    background: radial-gradient(circle, rgba(45, 215, 255, 0.9), rgba(45, 215, 255, 0.08));
     mix-blend-mode: screen;
   }
 
@@ -2861,8 +2862,6 @@ a {
       gap: 0.9rem;
     }
   }
-  gap: 0.75rem;
-}
 
 .install-option {
   display: grid;
