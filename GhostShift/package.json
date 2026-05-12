@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node ./backend/server.mjs",
-    "check": "node --check ./backend/server.mjs && node --check ./account.js && node --check ./script.js && node --check ./service-worker.js && node --check ./demo-player.js && node --check ./extension-chrome-edge/content.js && node --check ./extension-chrome-edge/popup.js && node --check ./extension-chrome-edge/options.js"
+    "check": "node --check ./backend/server.mjs && node --check ./account.js && node --check ./script.js && node --check ./service-worker.js && node --check ./demo-player.js && node --check ./extension-chrome-edge/content.js && node --check ./extension-chrome-edge/popup.js && node --check ./extension-chrome-edge/options.js",
+    "build": "npm run check"
   },
   "engines": {
     "node": ">=22"

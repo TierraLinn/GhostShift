@@ -40,6 +40,34 @@ Working test model:
 
 The demo player simulates an ad break so the browser extension can prove automatic skip behavior locally.
 
+## Deploy with Docker Compose
+
+1. Copy the example environment file:
+
+```bash
+cd GhostShift/backend
+cp .env.example .env
+```
+
+2. Edit `.env` with your Stripe secret key and price IDs.
+
+3. Start the service:
+
+```bash
+docker compose up -d
+```
+
+4. Verify deployment:
+
+```bash
+docker compose ps
+curl http://localhost:8787/api/health
+```
+
+5. Open the application in your browser:
+
+`http://localhost:8787/signup.html`
+
 ## Stripe dashboard setup
 
 1. Create a Stripe account.

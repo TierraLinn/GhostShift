@@ -4,11 +4,18 @@ GhostShift is a freemium video-flow product prototype with a web app, a browser 
 
 ## Working local model
 
-Fastest way:
+Fastest way on Windows:
 
 ```powershell
 cd C:\Users\tierr\Documents\Codex\2026-05-03\i-want-to-create-a-factory\GhostShift
 .\run-ghostshift.ps1
+```
+
+Fastest way on Linux/macOS:
+
+```bash
+cd /workspaces/GhostShift/GhostShift
+./run-ghostshift.sh
 ```
 
 Manual way:
@@ -16,6 +23,11 @@ Manual way:
 ```powershell
 cd C:\Users\tierr\Documents\Codex\2026-05-03\i-want-to-create-a-factory\GhostShift
 node .\backend\server.mjs
+```
+
+```bash
+cd /workspaces/GhostShift/GhostShift
+npm start
 ```
 
 Open:
@@ -38,6 +50,22 @@ Key pages:
 6. Open `http://localhost:8787/demo-player.html`.
 
 The demo player simulates an ad break with a visible skip button. GhostShift should click it automatically.
+
+## Full deployment
+
+The backend includes Docker support in `backend/docker-compose.yml`. To deploy:
+
+1. Create `backend/.env` from `backend/.env.example`.
+2. Set `STRIPE_SECRET_KEY`, `STRIPE_PRICE_PLUS`, and `STRIPE_PRICE_FAMILY`.
+3. Run from `GhostShift/backend`:
+
+```bash
+docker compose up -d
+```
+
+4. Confirm the service is running with `curl http://localhost:8787/api/health`.
+
+For a production launch, add Stripe webhooks, a real database, hosted auth, and HTTPS.
 
 ## Freemium model
 

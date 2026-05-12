@@ -1,12 +1,21 @@
 # Running GhostShift
 
-## One-command run
+## One-command run on Windows
 
 Open PowerShell and run:
 
 ```powershell
 cd C:\Users\tierr\Documents\Codex\2026-05-03\i-want-to-create-a-factory\GhostShift
 .\run-ghostshift.ps1
+```
+
+## One-command run on Linux/macOS
+
+Open a terminal and run:
+
+```bash
+cd /workspaces/GhostShift/GhostShift
+./run-ghostshift.sh
 ```
 
 Then open:
