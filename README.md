@@ -24,20 +24,28 @@ Open:
 
 Key pages:
 
+- `http://localhost:8787/install.html`
 - `http://localhost:8787/signup.html`
 - `http://localhost:8787/dashboard.html`
 - `http://localhost:8787/demo-player.html`
 
 ## Test the extension
 
-1. Open Chrome or Edge.
-2. Go to `chrome://extensions` or `edge://extensions`.
-3. Turn on Developer mode.
-4. Click Load unpacked.
-5. Select `GhostShift/extension-chrome-edge`.
-6. Open `http://localhost:8787/demo-player.html`.
+1. Open `http://localhost:8787/install.html`.
+2. Download the extension ZIP or use the unpacked folder directly.
+3. Open Chrome or Edge.
+4. Go to `chrome://extensions` or `edge://extensions`.
+5. Turn on Developer mode.
+6. Click Load unpacked.
+7. Select `GhostShift/extension-chrome-edge`.
+8. Refresh `http://localhost:8787/install.html`.
+9. Open `http://localhost:8787/demo-player.html`.
 
 The demo player simulates an ad break with a visible skip button. GhostShift should click it automatically.
+
+## Mobile path
+
+GhostShift includes an installable PWA and starter native-build notes. Open `mobile-app/PWA_INSTALL.md` for phone installation steps. Native Android and iOS store builds still require Android Studio, Xcode, signing keys, and store accounts.
 
 ## Freemium model
 
