@@ -1,0 +1,14 @@
+{
+  "appId": "com.ghostshift.app",
+  "appName": "GhostShift",
+  "webDir": "../",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "backgroundColor": "#07090f",
+      "showSpinner": false
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GhostShift</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="mark" aria-hidden="true">GS</div>
+        <div>
+          <h1>GhostShift</h1>
+          <p id="subtitle">Supported skip controls only</p>
+        </div>
+      </header>
+
+      <section class="status-card" aria-live="polite">
+        <div>
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusLabel">Checking this tab...</span>
+        </div>
+        <p id="statusDetail">Open YouTube or Facebook in this browser to use GhostShift.</p>
+      </section>
+
+      <label class="toggle-row">
+        <span>Enable GhostShift</span>
+        <input id="enabled" type="checkbox" />
+      </label>
+
+      <label class="toggle-row">
+        <span id="siteToggleLabel">Enable on this site</span>
+        <input id="siteEnabled" type="checkbox" />
+      </label>
+
+      <label class="toggle-row">
+        <span>Auto skip visible controls</span>
+        <input id="autoSkip" type="checkbox" />
+      </label>
+
+      <label class="toggle-row">
+        <span>Mute during ad breaks</span>
+        <input id="muteDuringAds" type="checkbox" />
+      </label>
+
+      <div class="metric-grid">
+        <div>
+          <span id="todaySkips">0</span>
+          <p>skips today</p>
+        </div>
+        <div>
+          <span id="totalSkips">0</span>
+          <p>total skips</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="scanNow" type="button">Scan now</button>
+        <button id="openOptions" class="secondary" type="button">Options</button>
+      </div>
+
+      <p class="notice">
+        GhostShift does not bypass paywalls, DRM, or platform restrictions. Some sites may block or change support.
+      </p>
+    </main>
+    <script src="./popup.js"></script>
+  </body>
+</html>

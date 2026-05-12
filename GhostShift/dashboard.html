@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard | GhostShift</title>
+    <meta name="theme-color" content="#07090f" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="site-body dashboard-body">
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="./index.html" aria-label="GhostShift home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 44" role="img">
+            <path d="M22 3.8c9.2 0 16.6 7.4 16.6 16.6v15.2c0 1.8-2.1 2.7-3.4 1.5l-3-2.9-3.2 3c-.8.8-2.1.8-2.9 0l-3.3-3.1-3.3 3.1c-.8.8-2.1.8-2.9 0l-3.2-3-3 2.9c-1.3 1.2-3.4.3-3.4-1.5V20.4C5.4 11.2 12.8 3.8 22 3.8Z" />
+            <circle cx="16.2" cy="20.3" r="2.4" />
+            <circle cx="27.8" cy="20.3" r="2.4" />
+            <path d="M16.8 28.5c3.6 2.2 6.8 2.2 10.4 0" />
+          </svg>
+        </span>
+        <span>GhostShift</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="./index.html#platforms">Platforms</a>
+        <a href="./index.html#pricing">Pricing</a>
+        <a href="./extension-chrome-edge/README.md">Install</a>
+      </nav>
+      <button class="header-button" id="signOut" type="button">Sign out</button>
+    </header>
+
+    <main class="dashboard-shell section-band">
+      <section class="dashboard-hero">
+        <div>
+          <h1 id="welcomeTitle">Welcome to GhostShift.</h1>
+          <p id="accountSummary">Create an account to manage your trial, subscription, and extension downloads.</p>
+        </div>
+        <a class="button primary" href="./GhostShift-Chrome-Edge-Extension.zip">Download extension</a>
+        <a class="button secondary" href="./demo-player.html">Open test player</a>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="dash-card wide server-card">
+          <div class="panel-title-row">
+            <div>
+              <h2>Server availability</h2>
+              <p id="serverDetail">Checking GhostShift backend health...</p>
+            </div>
+            <span class="status-pill" id="serverStatus">Checking</span>
+          </div>
+          <div class="server-grid">
+            <div><strong id="serverUptime">--</strong><span>uptime</span></div>
+            <div><strong id="stripeConfigured">--</strong><span>Stripe key</span></div>
+            <div><strong id="platformCount">--</strong><span>platforms enabled</span></div>
+          </div>
+        </article>
+
+        <article class="dash-card">
+          <h2>Account</h2>
+          <dl class="account-list">
+            <div><dt>Email</dt><dd id="accountEmail">Not signed in</dd></div>
+            <div><dt>Current plan</dt><dd id="accountPlan">Free trial</dd></div>
+            <div><dt>Trial status</dt><dd id="trialStatus">14 days remaining</dd></div>
+          </dl>
+        </article>
+
+        <article class="dash-card">
+          <h2>Freemium model</h2>
+          <div class="coverage-list">
+            <div><strong>Free download</strong><span>Anyone can install GhostShift and try it first.</span></div>
+            <div><strong>14-day trial</strong><span>New users get Plus features before paying.</span></div>
+            <div><strong>Subscription after trial</strong><span>Users who keep it can continue with Plus or Family.</span></div>
+          </div>
+        </article>
+
+        <article class="dash-card">
+          <h2>Extension setup</h2>
+          <ol class="compact-steps">
+            <li>Download the extension ZIP or load the unpacked folder.</li>
+            <li>Open Chrome or Edge extensions settings.</li>
+            <li>Turn on Developer mode and load GhostShift.</li>
+          </ol>
+          <a class="button secondary" href="./extension-chrome-edge/README.md">Open install guide</a>
+        </article>
+
+        <article class="dash-card wide">
+          <div class="panel-title-row">
+            <div>
+              <h2>Launch checklist</h2>
+              <p>Use this to get every GhostShift surface ready.</p>
+            </div>
+            <span class="status-pill" id="setupProgress">0/5 done</span>
+          </div>
+          <div class="checklist" id="setupChecklist">
+            <label><input type="checkbox" data-check="account" /> Create account</label>
+            <label><input type="checkbox" data-check="extension" /> Install browser extension</label>
+            <label><input type="checkbox" data-check="stripe" /> Connect Stripe</label>
+            <label><input type="checkbox" data-check="mobile" /> Add mobile shortcut</label>
+            <label><input type="checkbox" data-check="privacy" /> Review privacy</label>
+          </div>
+        </article>
+
+        <article class="dash-card wide">
+          <div class="panel-title-row">
+            <div>
+              <h2>Subscription</h2>
+              <p>Choose a plan and continue with Stripe Checkout when backend keys are configured.</p>
+            </div>
+            <span class="status-pill" id="stripeStatus">Stripe ready path</span>
+          </div>
+          <div class="dashboard-plans">
+            <button class="plan-option" data-plan="plus" type="button">
+              <strong>GhostShift Plus</strong>
+              <span>$2.99/month</span>
+              <small>Auto skip, mute restore, cross-device sync.</small>
+            </button>
+            <button class="plan-option" data-plan="family" type="button">
+              <strong>Family</strong>
+              <span>$6.99/month</span>
+              <small>Up to 6 profiles and household dashboard.</small>
+            </button>
+          </div>
+          <div class="stripe-message" id="stripeMessage" role="status"></div>
+        </article>
+
+        <article class="dash-card">
+          <h2>Platform coverage</h2>
+          <div class="coverage-list">
+            <div><strong>Chrome / Edge</strong><span>Auto skip supported on visible controls.</span></div>
+            <div><strong>Safari</strong><span>Planned through Safari Web Extension packaging.</span></div>
+            <div><strong>Android</strong><span>Companion app plus supported browser setup.</span></div>
+            <div><strong>iPhone / iPad</strong><span>Safari extension path, native apps limited.</span></div>
+          </div>
+        </article>
+
+        <article class="dash-card">
+          <h2>Privacy controls</h2>
+          <div class="privacy-toggles">
+            <label><input id="diagnostics" type="checkbox" /> Share anonymous diagnostics</label>
+            <label><input id="syncSettings" type="checkbox" checked /> Sync settings across devices</label>
+            <label><input id="localStats" type="checkbox" checked /> Save local skip stats</label>
+          </div>
+          <p class="form-note">GhostShift should not collect watch history unless a user explicitly opts in.</p>
+        </article>
+
+        <article class="dash-card">
+          <h2>Device manager</h2>
+          <div class="device-list" id="deviceList"></div>
+          <button class="button secondary form-button" id="addDevice" type="button">Add this device</button>
+        </article>
+
+        <article class="dash-card">
+          <h2>Support and reports</h2>
+          <form class="support-form" id="supportForm">
+            <label>
+              Platform
+              <select id="supportPlatform">
+                <option>YouTube web</option>
+                <option>Facebook web</option>
+                <option>Chrome extension</option>
+                <option>Edge extension</option>
+                <option>Mobile app</option>
+              </select>
+            </label>
+            <label>
+              What happened?
+              <textarea id="supportMessage" rows="4" placeholder="Tell us what failed or what feature you want next."></textarea>
+            </label>
+            <button class="button primary form-button" type="submit">Save report locally</button>
+            <p class="form-note" id="supportSaved"></p>
+          </form>
+        </article>
+
+        <article class="dash-card wide">
+          <div class="panel-title-row">
+            <div>
+              <h2>Growth tools</h2>
+              <p>Built-in pieces for launch, referrals, and product trust.</p>
+            </div>
+            <button class="header-button" id="copyReferral" type="button">Copy referral link</button>
+          </div>
+          <div class="growth-grid">
+            <div><strong>Referral code</strong><span id="referralCode">GHOST-TRIAL</span></div>
+            <div><strong>Release channel</strong><span>Stable extension plus beta mobile app</span></div>
+            <div><strong>Trust center</strong><span>Privacy, terms, uptime, and store disclosures planned</span></div>
+          </div>
+          <p class="form-note" id="referralStatus"></p>
+        </article>
+
+        <article class="dash-card wide">
+          <h2>Release notes</h2>
+          <div class="release-list">
+            <div><strong>0.1.0</strong><span>Interactive extension, dashboard signup, Stripe checkout endpoint, health checks.</span></div>
+            <div><strong>Next</strong><span>Real account database, Stripe webhooks, extension license sync, Safari packaging.</span></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./account.js"></script>
+  </body>
+</html>

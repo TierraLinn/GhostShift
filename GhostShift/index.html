@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GhostShift | Ads Disappear Like a Ghost</title>
+    <meta
+      name="description"
+      content="GhostShift is a freemium browser extension and app dashboard for automatic skip assistance on supported video platforms."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="site-body">
+    <nav class="top-nav">
+      <div class="nav-inner">
+        <a class="brand brand-blue" href="./index.html" aria-label="GhostShift home">
+          <span class="zap-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>
+          </span>
+          <span>GhostShift</span>
+        </a>
+        <div class="desktop-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#pricing">Pricing</a>
+          <a href="./dashboard.html">Dashboard</a>
+        </div>
+        <div class="desktop-actions">
+          <a class="ghost-link" href="./signin.html">Sign In</a>
+          <a class="blue-button small" href="./install.html">Start / Install</a>
+        </div>
+        <button class="mobile-toggle" type="button" aria-label="Open menu" data-mobile-toggle>
+          <span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" data-mobile-menu>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="./dashboard.html">Dashboard</a>
+        <a class="blue-button small" href="./install.html">Start / Install</a>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero-clean">
+        <div class="content-narrow">
+          <div class="platform-pill">
+            <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>
+            Chrome - Edge - Safari - Android - iOS
+          </div>
+          <h1>Ads Disappear.<br />Like a Ghost.</h1>
+          <p>
+            GhostShift auto-skips visible ad controls on supported web video platforms and gives users a clean
+            dashboard for installs, trials, subscriptions, and device setup.
+          </p>
+          <div class="hero-cta-row">
+            <a class="blue-button" href="./install.html">
+              <svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg>
+              Get GhostShift - It's Free
+            </a>
+            <a class="outline-button" href="#how-it-works">
+              See How It Works
+              <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+            </a>
+          </div>
+          <div class="compat-row" aria-label="Supported platform badges">
+            <span><i></i>Chrome</span>
+            <span><i></i>Edge</span>
+            <span><i></i>Safari</span>
+            <span><i></i>Android</span>
+            <span><i></i>iPhone</span>
+          </div>
+          <div class="stats-grid">
+            <article>
+              <strong>4.2M</strong>
+              <span>Ads Skipped Today</span>
+              <small>demo network metric</small>
+            </article>
+            <article>
+              <strong>18,400</strong>
+              <span>Hours Saved</span>
+              <small>this week</small>
+            </article>
+            <article>
+              <strong>12+</strong>
+              <span>Platforms Tracked</span>
+              <small>live and beta roadmap</small>
+            </article>
+          </div>
+          <div class="interactive-stage" data-landing-demo>
+            <div class="stage-header">
+              <span><i></i>Live GhostShift preview</span>
+              <button type="button" data-demo-reset>Restart Ad</button>
+            </div>
+            <div class="stage-screen">
+              <div class="scan-beam"></div>
+              <div class="floating-ghost" aria-hidden="true">
+                <svg viewBox="0 0 64 64">
+                  <path d="M32 8c12.7 0 23 10.3 23 23v18.5c0 2.2-2.7 3.4-4.3 1.8L47 47.7l-3.9 3.7c-1.1 1-2.8 1-3.9 0L35.3 48l-3.9 3.4c-1.1 1-2.8 1-3.9 0L23.7 48l-3.9 3.4c-1.6 1.5-4.3.4-4.3-1.8V31C15.5 18.3 19.3 8 32 8Z" />
+                  <circle cx="25" cy="31" r="3" />
+                  <circle cx="39" cy="31" r="3" />
+                  <path d="M25 40c4.8 3.2 9.2 3.2 14 0" />
+                </svg>
+              </div>
+              <div class="ad-chip" data-demo-chip>Sponsored break detected</div>
+              <button class="skip-sim-button" type="button" data-demo-skip>Skip Ad</button>
+              <div class="demo-cursor" aria-hidden="true" data-demo-cursor></div>
+            </div>
+            <div class="stage-footer">
+              <span data-demo-status>Scanning for visible skip button...</span>
+              <div class="stage-meter"><i data-demo-meter></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="install" class="install-section">
+        <div class="section-title center">
+          <h2>Available on every device</h2>
+          <p>Install GhostShift wherever you watch. The browser extension is ready to test now.</p>
+        </div>
+        <div class="install-grid">
+          <article class="install-card">
+            <div class="card-heading">
+              <span class="mini-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 0c3 3 4.5 6.3 4.5 10S15 19 12 22M12 2C9 5 7.5 8.3 7.5 12S9 19 12 22M2 12h20" /></svg>
+              </span>
+              <h3>Browser Extensions</h3>
+            </div>
+            <div class="install-options">
+              <a class="install-option" href="./install.html">
+                <span><strong>Chrome / Edge</strong><small>Works with the included extension</small></span>
+                <em class="badge blue">Recommended</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+              <a class="install-option" href="./mobile-app/README.md">
+                <span><strong>Firefox</strong><small>Planned adapter</small></span>
+                <em class="badge gray">Roadmap</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+              <a class="install-option" href="./mobile-app/README.md">
+                <span><strong>Safari</strong><small>Mac and iPhone extension plan</small></span>
+                <em class="badge gray">Roadmap</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+            </div>
+          </article>
+
+          <article class="install-card">
+            <div class="card-heading">
+              <span class="mini-icon">
+                <svg viewBox="0 0 24 24"><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm3 17h2" /></svg>
+              </span>
+              <h3>Mobile Apps</h3>
+            </div>
+            <div class="install-options">
+              <a class="install-option" href="./mobile-app/README.md">
+                <span><strong>Android App</strong><small>Companion app and browser setup</small></span>
+                <em class="badge green">Free</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+              <a class="install-option" href="./mobile-app/README.md">
+                <span><strong>iPhone / iPad</strong><small>Safari extension path</small></span>
+                <em class="badge green">Free</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+              <a class="install-option" href="./demo-player.html">
+                <span><strong>Working Test Model</strong><small>Prove auto-skip locally</small></span>
+                <em class="badge blue">Live</em>
+                <b><svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg></b>
+              </a>
+            </div>
+          </article>
+        </div>
+        <p class="subtle-center">All installs are free. No credit card required. Upgrade to Pro anytime.</p>
+      </section>
+
+      <section id="features" class="tab-section">
+        <div class="tab-shell">
+          <div class="tab-list" role="tablist">
+            <button class="active" type="button" data-tab="features">Features</button>
+            <button type="button" data-tab="platforms">Platforms</button>
+            <button type="button" data-tab="steps">How It Works</button>
+          </div>
+
+          <div class="tab-panel active" data-panel="features">
+            <div class="feature-grid">
+              <article class="feature-card">
+                <span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg></span>
+                <h3>Instant Skip Detection</h3>
+                <p>GhostShift detects supported visible skip buttons the moment they appear.</p>
+                <ul>
+                  <li>YouTube web skip controls</li>
+                  <li>Facebook web video ads</li>
+                  <li>Local demo player</li>
+                  <li>Adapter registry roadmap</li>
+                </ul>
+              </article>
+              <article class="feature-card">
+                <span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z" /></svg></span>
+                <h3>Privacy First</h3>
+                <p>Designed around local controls, optional diagnostics, and clear user permission.</p>
+                <ul>
+                  <li>No payment cards stored</li>
+                  <li>No watch history required</li>
+                  <li>Local stats controls</li>
+                  <li>Transparent platform limits</li>
+                </ul>
+              </article>
+              <article class="feature-card">
+                <span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5m5 14v-7m5 7V8m5 11v-4" /></svg></span>
+                <h3>Personal Skip Dashboard</h3>
+                <p>Track setup, devices, subscription state, platform coverage, and reports.</p>
+                <ul>
+                  <li>Launch checklist</li>
+                  <li>Device manager</li>
+                  <li>Support reports</li>
+                  <li>Referral tools</li>
+                </ul>
+              </article>
+              <article class="feature-card">
+                <span class="mini-icon"><svg viewBox="0 0 24 24"><path d="M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg></span>
+                <h3>Smart Queue Mode</h3>
+                <p>A roadmap feature for playlists and repeated supported-player sessions.</p>
+                <ul>
+                  <li>Playlist-aware skipping</li>
+                  <li>Auto-resume after skip</li>
+                  <li>Configurable delay</li>
+                  <li>Silent background mode</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="platforms">
+            <div class="platform-matrix">
+              <article><strong>YouTube</strong><em class="live">Live</em><div class="ring" style="--pct: 98">98%</div></article>
+              <article><strong>Facebook</strong><em class="live">Live</em><div class="ring" style="--pct: 91">91%</div></article>
+              <article><strong>GhostShift Demo</strong><em class="live">Live</em><div class="ring" style="--pct: 100">100%</div></article>
+              <article><strong>Instagram</strong><em>Beta</em><div class="ring" style="--pct: 74">74%</div></article>
+              <article><strong>Twitch</strong><em>Beta</em><div class="ring" style="--pct: 61">61%</div></article>
+              <article><strong>Reddit</strong><em>Beta</em><div class="ring" style="--pct: 55">55%</div></article>
+              <article><strong>Hulu</strong><em>Review</em><div class="ring" style="--pct: 52">52%</div></article>
+              <article><strong>Peacock</strong><em>Review</em><div class="ring" style="--pct: 50">50%</div></article>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="steps">
+            <div class="steps-grid">
+              <article><span>01</span><h3>Pick Your Platform</h3><p>Install GhostShift as a Chrome or Edge extension today, then follow the mobile roadmap for phone setup.</p></article>
+              <article><span>02</span><h3>Open a Supported Player</h3><p>Use the local test player first, then supported web players where skip controls are available.</p></article>
+              <article><span>03</span><h3>Ads Get Skipped Automatically</h3><p>When a supported skip button appears, GhostShift clicks it for you and records local stats.</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="timeline-section">
+        <div class="section-title">
+          <h2>Up and running in 60 seconds</h2>
+          <p>Works as a real local model today, with production deployment notes included.</p>
+        </div>
+        <div class="timeline-steps">
+          <article><b>1</b><div><h3>Run the server</h3><p>Start `run-ghostshift.ps1` and open the local web app.</p></div></article>
+          <article><b>2</b><div><h3>Load the extension</h3><p>Use Chrome or Edge Developer mode and select the extension folder.</p></div></article>
+          <article><b>3</b><div><h3>Test auto-skip</h3><p>Open the demo player and watch GhostShift click the visible skip button.</p></div></article>
+        </div>
+      </section>
+
+      <section id="pricing" class="pricing-clean">
+        <div class="section-title">
+          <h2>Simple, transparent pricing</h2>
+          <p>Start free on any device, upgrade when you want to keep Pro features.</p>
+        </div>
+        <div class="pricing-clean-grid">
+          <article>
+            <h3>Free</h3>
+            <p>Perfect for casual viewers.</p>
+            <div class="price-line">$0<span>/mo</span></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>YouTube web auto-skip</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Basic skip counter</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>1 browser profile</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Community support</li>
+            </ul>
+            <a class="outline-button full" href="./signup.html?plan=free">Install Free</a>
+          </article>
+          <article class="highlight">
+            <em>Most Popular</em>
+            <h3>Pro</h3>
+            <p>For power users who want it all.</p>
+            <div class="price-line">$4<span>/mo</span></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Supported platform adapters</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Full skip dashboard</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Smart Queue roadmap</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Mobile app access</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Priority support</li>
+            </ul>
+            <a class="blue-button full" href="./signup.html?plan=plus">Start Pro Trial</a>
+          </article>
+          <article>
+            <h3>Team</h3>
+            <p>Shared access for up to 5 people.</p>
+            <div class="price-line">$12<span>/mo</span></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Everything in Pro</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>5 team seats</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Centralized billing</li>
+              <li><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg>Admin dashboard</li>
+            </ul>
+            <a class="outline-button full" href="./signup.html?plan=family">Contact Us</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="bottom-cta">
+        <div>
+          <h2>Ready to go ghost on ads?</h2>
+          <p>Start with the working local model, then connect Stripe for real subscriptions.</p>
+        </div>
+        <a class="blue-button" href="./install.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v2h14v-2" /></svg>
+          Install GhostShift Free
+        </a>
+      </section>
+    </main>
+
+    <footer class="footer-clean">
+      <a class="brand brand-blue" href="./index.html">
+        <span class="zap-mark small-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg></span>
+        <span>GhostShift</span>
+      </a>
+      <div>
+        <a href="./privacy.html">Privacy</a>
+        <a href="./terms.html">Terms</a>
+        <a href="./README.md">Docs</a>
+        <a href="./dashboard.html">Support</a>
+      </div>
+      <span>© 2026 GhostShift. All rights reserved.</span>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

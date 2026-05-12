@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign out | GhostShift</title>
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="site-body auth-page">
+    <main class="auth-clean-shell compact">
+      <a href="./index.html" class="auth-logo">
+        <span class="zap-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg></span>
+        <span>GhostShift</span>
+      </a>
+      <section class="auth-clean-card centered">
+        <div class="logout-icon"><svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" /></svg></div>
+        <h1>Sign out?</h1>
+        <p>You'll need to sign back in to access your dashboard.</p>
+        <button class="blue-button full" id="confirmSignOut" type="button">Yes, sign me out</button>
+        <a class="cancel-link" href="./dashboard.html">Cancel, take me back</a>
+      </section>
+    </main>
+    <script src="./account.js"></script>
+  </body>
+</html>

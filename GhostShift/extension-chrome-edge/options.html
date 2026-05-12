@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GhostShift Options</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div class="mark" aria-hidden="true">GS</div>
+        <div>
+          <h1>GhostShift Options</h1>
+          <p>Control supported sites, automation behavior, and local stats.</p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>Automation</h2>
+        <label class="row">
+          <span>
+            Enable GhostShift
+            <small>Turns all supported automation on or off.</small>
+          </span>
+          <input id="enabled" type="checkbox" />
+        </label>
+        <label class="row">
+          <span>
+            Auto skip visible controls
+            <small>Clicks only visible skip controls that already appear in the video player.</small>
+          </span>
+          <input id="autoSkip" type="checkbox" />
+        </label>
+        <label class="row">
+          <span>
+            Mute during detected ad breaks
+            <small>Temporarily mutes detected ad states and restores your audio afterward.</small>
+          </span>
+          <input id="muteDuringAds" type="checkbox" />
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>Supported Sites</h2>
+        <label class="row">
+          <span>
+            YouTube web
+            <small>Works only where the page exposes a supported skip control.</small>
+          </span>
+          <input id="youtube.com" class="site-toggle" type="checkbox" />
+        </label>
+        <label class="row">
+          <span>
+            Facebook web
+            <small>Support depends on the current player and page layout.</small>
+          </span>
+          <input id="facebook.com" class="site-toggle" type="checkbox" />
+        </label>
+        <label class="row">
+          <span>
+            GhostShift demo player
+            <small>Local safe test page for proving auto-skip before using live sites.</small>
+          </span>
+          <input id="ghostshift-demo" class="site-toggle" type="checkbox" />
+        </label>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title-row">
+          <div>
+            <h2>Local Stats</h2>
+            <p>Stats are stored on this browser profile.</p>
+          </div>
+          <button id="resetStats" type="button">Reset stats</button>
+        </div>
+        <div id="statsList" class="stats-list"></div>
+      </section>
+
+      <section class="panel note">
+        <h2>Platform-safe mode</h2>
+        <p>
+          GhostShift does not bypass DRM, paywalls, account requirements, or platform security. It only helps with
+          user-visible controls and supported browser behavior.
+        </p>
+      </section>
+    </main>
+    <script src="./options.js"></script>
+  </body>
+</html>

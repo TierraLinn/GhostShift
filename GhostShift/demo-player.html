@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GhostShift Demo Player</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./demo-player.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="./index.html" aria-label="GhostShift home">
+        <span class="brand-mark" aria-hidden="true">GS</span>
+        <span>GhostShift Demo</span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./extension-chrome-edge/README.md">Install extension</a>
+      </nav>
+      <button class="header-button" id="restartDemo" type="button">Restart demo</button>
+    </header>
+
+    <main class="demo-shell section-band">
+      <section class="demo-copy">
+        <h1>Test auto-skip safely.</h1>
+        <p>
+          This page simulates a video ad with a visible skip button. Load the GhostShift extension, open this page
+          through the local server, and watch the extension click the skip control automatically.
+        </p>
+        <div class="demo-status" id="demoStatus">Waiting to start...</div>
+      </section>
+
+      <section class="demo-player ghostshift-demo-ad" id="demoPlayer" aria-label="Demo video player">
+        <div class="demo-screen">
+          <div class="demo-label" id="demoLabel">Sponsored break</div>
+          <div class="demo-visual" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <button class="demo-skip ytp-ad-skip-button" id="ghostshift-demo-skip" type="button">Skip Ad</button>
+        </div>
+        <div class="demo-controls">
+          <span id="demoTime">Ad break: 5s</span>
+          <div class="demo-progress"><span id="demoProgress"></span></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./demo-player.js"></script>
+  </body>
+</html>

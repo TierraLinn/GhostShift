@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Start GhostShift | Install</title>
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="site-body install-wizard-body">
+    <nav class="top-nav">
+      <div class="nav-inner">
+        <a class="brand brand-blue" href="./index.html">
+          <span class="zap-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg></span>
+          <span>GhostShift</span>
+        </a>
+        <div class="desktop-links">
+          <a href="./index.html">Home</a>
+          <a href="./dashboard.html">Dashboard</a>
+          <a href="./demo-player.html">Demo Player</a>
+        </div>
+        <a class="blue-button small" href="./GhostShift-Chrome-Edge-Extension.zip" download>Download ZIP</a>
+      </div>
+    </nav>
+
+    <main class="install-wizard">
+      <section class="wizard-hero">
+        <div>
+          <h1>Start GhostShift here.</h1>
+          <p>
+            Browser extensions cannot be enabled by a normal webpage. Use this screen to download/load the extension,
+            confirm it is detected, and test the auto-skip flow.
+          </p>
+        </div>
+        <div class="detect-card" id="extensionDetectCard">
+          <span id="extensionDetectDot"></span>
+          <strong id="extensionDetectTitle">Checking extension...</strong>
+          <p id="extensionDetectText">If GhostShift is loaded unpacked, this card will turn green.</p>
+        </div>
+      </section>
+
+      <section class="wizard-grid">
+        <article class="wizard-card">
+          <span class="wizard-step">01</span>
+          <h2>Download or load the extension</h2>
+          <p>For local testing, Chrome/Edge requires the unpacked folder. The ZIP is for sharing or submission.</p>
+          <div class="wizard-actions">
+            <a class="blue-button full" href="./GhostShift-Chrome-Edge-Extension.zip" download>Download extension ZIP</a>
+            <a class="outline-button full" href="chrome://extensions">Open Chrome extensions</a>
+            <a class="outline-button full" href="edge://extensions">Open Edge extensions</a>
+          </div>
+          <div class="path-box">
+            <span>Load unpacked folder:</span>
+            <code>C:\Users\tierr\Documents\Codex\2026-05-03\i-want-to-create-a-factory\GhostShift\extension-chrome-edge</code>
+          </div>
+        </article>
+
+        <article class="wizard-card">
+          <span class="wizard-step">02</span>
+          <h2>Enable it in Chrome or Edge</h2>
+          <ol>
+            <li>Open <code>chrome://extensions</code> or <code>edge://extensions</code>.</li>
+            <li>Turn on Developer mode.</li>
+            <li>Click Load unpacked.</li>
+            <li>Select the folder shown on this page.</li>
+            <li>Refresh this install page.</li>
+          </ol>
+        </article>
+
+        <article class="wizard-card">
+          <span class="wizard-step">03</span>
+          <h2>Test auto-skip</h2>
+          <p>The real local test is the GhostShift demo player. It creates a visible Skip Ad button the extension can click.</p>
+          <a class="blue-button full" href="./demo-player.html">Open auto-skip test player</a>
+          <p class="tiny-note">Important: GhostShift is a skip assistant for visible controls. It is not a network-level ad blocker.</p>
+        </article>
+
+        <article class="wizard-card">
+          <span class="wizard-step">04</span>
+          <h2>Start mobile</h2>
+          <p>The mobile app starts as an installable PWA. Native Android/iPhone builds need platform tooling.</p>
+          <div class="wizard-actions">
+            <a class="outline-button full" href="./mobile-app/README.md">Open mobile build plan</a>
+            <a class="outline-button full" href="./mobile-app/PWA_INSTALL.md">Phone install steps</a>
+          </div>
+          <div class="path-box">
+            <span>Starter script:</span>
+            <code>.\mobile-app\start-mobile-build.ps1</code>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./install.js"></script>
+  </body>
+</html>

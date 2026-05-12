@@ -1,0 +1,93 @@
+{
+  "accounts": [
+    {
+      "id": "acct_1778551622588",
+      "name": "Demo User",
+      "email": "demo@ghostshift.test",
+      "plan": "plus",
+      "subscriptionStatus": "active",
+      "stripeCustomerId": null,
+      "trialStartedAt": "2026-05-12T02:07:02.588Z",
+      "trialEndsAt": "2026-05-26T02:07:02.588Z",
+      "createdAt": "2026-05-12T02:07:02.588Z",
+      "devices": [
+        {
+          "id": "device_1778551622655",
+          "name": "Chrome-compatible browser",
+          "platform": "Win32",
+          "addedAt": "2026-05-12T02:07:02.655Z"
+        }
+      ],
+      "privacy": {
+        "diagnostics": false,
+        "syncSettings": true,
+        "localStats": true
+      },
+      "demoCheckoutAt": "2026-05-12T02:07:02.684Z"
+    },
+    {
+      "id": "acct_1778551812885",
+      "name": "Final Demo",
+      "email": "final@ghostshift.test",
+      "plan": "plus",
+      "subscriptionStatus": "active",
+      "stripeCustomerId": null,
+      "trialStartedAt": "2026-05-12T02:10:12.885Z",
+      "trialEndsAt": "2026-05-26T02:10:12.885Z",
+      "createdAt": "2026-05-12T02:10:12.885Z",
+      "devices": [],
+      "privacy": {
+        "diagnostics": false,
+        "syncSettings": true,
+        "localStats": true
+      },
+      "demoCheckoutAt": "2026-05-12T02:10:12.923Z"
+    },
+    {
+      "id": "acct_1778567915760",
+      "name": "Tierra Linn Milligan",
+      "email": "tierralinn@gmail.com",
+      "plan": "free",
+      "subscriptionStatus": "trialing",
+      "stripeCustomerId": null,
+      "trialStartedAt": "2026-05-12T06:38:35.760Z",
+      "trialEndsAt": "2026-05-26T06:38:35.760Z",
+      "createdAt": "2026-05-12T06:38:35.760Z",
+      "devices": [],
+      "privacy": {
+        "diagnostics": false,
+        "syncSettings": true,
+        "localStats": true
+      }
+    }
+  ],
+  "reports": [
+    {
+      "id": "report_1778551622672",
+      "email": "demo@ghostshift.test",
+      "platform": "GhostShift demo",
+      "message": "Auto skip test report",
+      "createdAt": "2026-05-12T02:07:02.672Z"
+    }
+  ],
+  "events": [
+    {
+      "type": "signup",
+      "email": "tierralinn@gmail.com",
+      "plan": "free",
+      "createdAt": "2026-05-12T06:38:35.760Z"
+    },
+    {
+      "type": "signup",
+      "email": "final@ghostshift.test",
+      "plan": "free",
+      "createdAt": "2026-05-12T02:10:12.885Z"
+    },
+    {
+      "type": "signup",
+      "email": "demo@ghostshift.test",
+      "plan": "plus",
+      "createdAt": "2026-05-12T02:07:02.588Z"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create account | GhostShift</title>
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/ghostshift-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="site-body auth-page">
+    <main class="auth-clean-shell">
+      <a href="./index.html" class="auth-logo">
+        <span class="zap-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg></span>
+        <span>GhostShift</span>
+      </a>
+      <section class="auth-clean-card">
+        <h1>Create your free account</h1>
+        <p>Start skipping ads instantly. No credit card needed.</p>
+        <form id="signupForm" novalidate>
+          <input id="plan" type="hidden" value="free" />
+          <label>
+            Email
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+          </label>
+          <label>
+            Password
+            <input id="password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Create a password" />
+          </label>
+          <div class="form-error" id="signupError" hidden>Please fill in all fields.</div>
+          <button class="blue-button full" type="submit">Create Free Account</button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="./signin.html">Sign in</a></p>
+      </section>
+      <p class="auth-footnote">Free plan includes supported auto-skip. Upgrade to Pro anytime.</p>
+    </main>
+    <script src="./account.js"></script>
+  </body>
+</html>
