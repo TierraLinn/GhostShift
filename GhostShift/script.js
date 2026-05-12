@@ -262,6 +262,50 @@ function setupTiltCards() {
 setupLandingDemo();
 setupTiltCards();
 setupInteractiveGhostDemo();
+setupGlobalPageMotion();
+setupGhostClickRipples();
+
+function setupGlobalPageMotion() {
+  const root = document.documentElement;
+  document.addEventListener("pointermove", (event) => {
+    const x = (event.clientX / window.innerWidth - 0.5) * 8;
+    const y = (event.clientY / window.innerHeight - 0.5) * 8;
+    root.style.setProperty("--pointer-x", `${x}`);
+    root.style.setProperty("--pointer-y", `${y}`);
+  });
+
+  const hoverItems = document.querySelectorAll(
+    ".hero-cta-row a, .ghost-button, .outline-ghost-button, .hero-chip, .status-pill, .install-card, .feature-card, .stats-grid article, .compat-row span"
+  );
+
+  hoverItems.forEach((item) => {
+    item.addEventListener("pointerenter", () => {
+      item.style.transform = "translateY(-2px) scale(1.01)";
+      item.style.boxShadow = "0 20px 55px rgba(94, 234, 212, 0.2)";
+    });
+    item.addEventListener("pointerleave", () => {
+      item.style.transform = "";
+      item.style.boxShadow = "";
+    });
+  });
+}
+
+function setupGhostClickRipples() {
+  document.body.addEventListener("click", (event) => {
+    const target = event.target.closest("a, button, .ghost-button, .outline-ghost-button, .interactive-ghost, .status-pill, .hero-chip");
+    if (!target) return;
+
+    const ripple = document.createElement("div");
+    ripple.className = "pointer-ripple";
+    ripple.style.left = `${event.clientX}px`;
+    ripple.style.top = `${event.clientY}px`;
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 800);
+  });
+}
 
 if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
   window.addEventListener("load", () => {
