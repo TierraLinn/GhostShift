@@ -51,7 +51,27 @@ function markExtensionDetected() {
   marker.hidden = true;
   marker.dataset.version = chrome.runtime.getManifest().version;
   document.documentElement.appendChild(marker);
+  createDebugBanner();
+  updateDebugBanner();
   debug("Extension injected", { host: window.location.hostname, pathname: window.location.pathname, version: marker.dataset.version });
+}
+
+function createDebugBanner() {
+  if (document.getElementById("ghostshift-debug-banner")) return;
+  const banner = document.createElement("div");
+  banner.id = "ghostshift-debug-banner";
+  banner.style.cssText = "position:fixed;bottom:1rem;right:1rem;z-index:2147483647;max-width:320px;padding:0.75rem 1rem;font-family:Arial,sans-serif;font-size:12px;line-height:1.4;background:rgba(0,0,0,0.85);color:#ffffff;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.35);opacity:0.95;";
+  banner.innerHTML = '<strong>GhostShift</strong><br><span id="ghostshift-debug-status">Initializing...</span><br><span id="ghostshift-debug-action"></span>';
+  document.documentElement.appendChild(banner);
+}
+
+function updateDebugBanner() {
+  const banner = document.getElementById("ghostshift-debug-banner");
+  if (!banner) return;
+  const statusEl = document.getElementById("ghostshift-debug-status");
+  const actionEl = document.getElementById("ghostshift-debug-action");
+  if (statusEl) statusEl.textContent = `${status.platform} on ${status.host}`;
+  if (actionEl) actionEl.textContent = `${status.lastAction} — scans: ${status.scanCount}, skips: ${status.skipCount}`;
 }
 
 function storageGet(area, defaults) {
@@ -176,6 +196,7 @@ async function scan(reason = "auto") {
     status.adDetected = false;
     status.skipControlVisible = false;
     setLastAction("GhostShift is paused globally");
+    updateDebugBanner();
     return status;
   }
 
@@ -183,6 +204,7 @@ async function scan(reason = "auto") {
     status.adDetected = false;
     status.skipControlVisible = false;
     setLastAction(`${getPlatformName()} is disabled in GhostShift`);
+    updateDebugBanner();
     return status;
   }
 
@@ -195,6 +217,7 @@ async function scan(reason = "auto") {
 
   if (!settings.autoSkip) {
     if (skipControl) setLastAction("Skip control found, auto skip is off");
+    updateDebugBanner();
     return status;
   }
 
@@ -204,6 +227,7 @@ async function scan(reason = "auto") {
     status.skipCount += 1;
     setLastAction(reason === "manual" ? "Manual scan clicked a skip control" : "Auto-clicked a visible skip control");
     await recordSkip();
+    updateDebugBanner();
     return status;
   }
 
@@ -213,6 +237,7 @@ async function scan(reason = "auto") {
     setLastAction("Manual scan complete, no skip control visible");
   }
 
+  updateDebugBanner();
   return status;
 }
 

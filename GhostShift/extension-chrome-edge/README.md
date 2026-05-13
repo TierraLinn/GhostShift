@@ -38,6 +38,8 @@ The extension is free to install. The intended production model is a 14-day Plus
 7. Click the GhostShift extension icon to use the popup.
 8. If the popup says reload is needed, refresh the video page once.
 
+> You should see a GhostShift debug banner in the bottom-right corner of the page when the extension is active.
+>
 > If GhostShift still does not activate, open the extension details and set site access to `On all sites`, then reload the extension and refresh the demo page.
 
 ## Working local test model
