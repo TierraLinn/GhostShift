@@ -46,6 +46,15 @@ The extension also runs on the GhostShift demo player:
 
 Use this page to prove auto-skip safely before testing on live video sites. The page creates a simulated sponsored break with a visible `Skip Ad` button. GhostShift should detect and click it automatically when the extension is loaded.
 
+### Production deployment
+After deploying the backend, update `manifest.json` to include the live host and reload the extension. For example:
+
+- `https://ghostshift.onrender.com/*`
+
+Once deployed, the extension can support the live demo page at:
+
+- `https://ghostshift.onrender.com/demo-player.html`
+
 ## Interactable surfaces
 
 - Popup: `popup.html`

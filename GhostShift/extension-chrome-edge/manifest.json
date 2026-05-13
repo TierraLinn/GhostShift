@@ -23,6 +23,7 @@
         "http://127.0.0.1:8787/*",
         "https://ghostshift.railway.app/*",
         "https://*.railway.app/*",
+        "https://ghostshift.onrender.com/*",
         "https://*.onrender.com/*"
       ],
       "js": ["content.js"],
