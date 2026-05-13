@@ -1,5 +1,31 @@
 # GhostShift Release Notes
 
+## v0.1.1 — Extension & Production Support Patch
+
+- Release tag: `v0.1.1`
+- Date: 2026-05-13
+- Branch: `main`
+- Status: Production-ready with verified extension injection
+
+### Summary
+Extension is now confirmed working on the production URL. This patch adds:
+- Explicit `host_permissions` for `https://ghostshift.onrender.com/*` in the extension manifest
+- Debug logging to the extension content script for troubleshooting
+- Visible debug banner showing extension activity during page scans
+- Updated extension README with troubleshooting guidance
+
+### Key changes
+- `GhostShift/extension-chrome-edge/content.js`: Added debug console logs and visible status banner
+- `GhostShift/extension-chrome-edge/manifest.json`: Added explicit host permissions for Render deployment
+- Extension now displays live status in bottom-right corner of the page
+
+### Deployment ready
+- Live URL: `https://ghostshift.onrender.com/demo-player.html`
+- Extension auto-skips the demo ad on this page
+- All troubleshooting documentation in extension README
+
+---
+
 ## v0.1.0 — Launch Release
 
 - Release tag: `v0.1.0`
