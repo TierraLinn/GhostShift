@@ -12,6 +12,10 @@
     "open_in_tab": true
   },
   "permissions": ["storage", "tabs"],
+  "host_permissions": [
+    "https://ghostshift.onrender.com/*",
+    "https://*.onrender.com/*"
+  ],
   "content_scripts": [
     {
       "matches": [

@@ -5,6 +5,13 @@ const DEFAULT_SETTINGS = {
   siteOverrides: {}
 };
 
+const DEBUG = true;
+function debug(...args) {
+  if (DEBUG) {
+    console.debug("[GhostShift]", ...args);
+  }
+}
+
 const SKIP_SELECTORS = [
   ".ytp-ad-skip-button",
   ".ytp-ad-skip-button-modern",
@@ -44,6 +51,7 @@ function markExtensionDetected() {
   marker.hidden = true;
   marker.dataset.version = chrome.runtime.getManifest().version;
   document.documentElement.appendChild(marker);
+  debug("Extension injected", { host: window.location.hostname, pathname: window.location.pathname, version: marker.dataset.version });
 }
 
 function storageGet(area, defaults) {
@@ -95,18 +103,28 @@ function textLooksLikeSkip(element) {
 }
 
 function findSkipControl() {
-  const directMatch = SKIP_SELECTORS
-    .flatMap((selector) => Array.from(document.querySelectorAll(selector)))
-    .find((element) => isVisible(element) && textLooksLikeSkip(element));
+  const directMatches = SKIP_SELECTORS.flatMap((selector) => Array.from(document.querySelectorAll(selector)));
+  debug("findSkipControl: direct selector candidates", { count: directMatches.length, selectors: SKIP_SELECTORS });
+  const directMatch = directMatches.find((element) => isVisible(element) && textLooksLikeSkip(element));
 
-  if (directMatch) return directMatch;
+  if (directMatch) {
+    debug("findSkipControl: direct match found", { selector: directMatch.tagName, text: directMatch.innerText });
+    return directMatch;
+  }
 
-  return Array.from(document.querySelectorAll("button, [role='button']"))
-    .find((element) => isVisible(element) && textLooksLikeSkip(element));
+  const buttons = Array.from(document.querySelectorAll("button, [role='button']"));
+  debug("findSkipControl: button candidates", { count: buttons.length });
+  const fallbackMatch = buttons.find((element) => isVisible(element) && textLooksLikeSkip(element));
+  if (fallbackMatch) {
+    debug("findSkipControl: fallback match found", { text: fallbackMatch.innerText });
+  }
+  return fallbackMatch;
 }
 
 function pageLooksLikeAdBreak() {
-  return AD_STATE_SELECTORS.some((selector) => Array.from(document.querySelectorAll(selector)).some(isVisible));
+  const match = AD_STATE_SELECTORS.some((selector) => Array.from(document.querySelectorAll(selector)).some(isVisible));
+  debug("pageLooksLikeAdBreak", { match, selectors: AD_STATE_SELECTORS });
+  return match;
 }
 
 function getVideo() {
@@ -152,6 +170,7 @@ async function scan(reason = "auto") {
   status.host = window.location.hostname;
   status.platform = getPlatformName();
   status.enabledForSite = isEnabledForSite();
+  debug("Starting scan", { reason, host: status.host, platform: status.platform, enabledForSite: status.enabledForSite, settings });
 
   if (!settings.enabled) {
     status.adDetected = false;
@@ -180,6 +199,7 @@ async function scan(reason = "auto") {
   }
 
   if (skipControl) {
+    debug("Clicking skip control", { element: skipControl, text: skipControl.innerText });
     skipControl.click();
     status.skipCount += 1;
     setLastAction(reason === "manual" ? "Manual scan clicked a skip control" : "Auto-clicked a visible skip control");
