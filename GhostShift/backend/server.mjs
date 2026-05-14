@@ -1,4 +1,5 @@
 import { createServer } from "node:http";
+import { createHmac, timingSafeEqual } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,6 +10,8 @@ const ROOT = normalize(join(BACKEND_DIR, ".."));
 const DATA_DIR = normalize(join(ROOT, "data"));
 const STORE_PATH = normalize(join(DATA_DIR, "ghostshift-store.json"));
 const STRIPE_API_VERSION = "2026-02-25.clover";
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
+const PUBLIC_APP_URL = process.env.PUBLIC_APP_URL || process.env.APP_URL || `http://localhost:${PORT}`;
 
 const PRICE_IDS = {
   plus: process.env.STRIPE_PRICE_PLUS,
@@ -84,6 +87,8 @@ function sendHealth(response, headOnly = false) {
     startedAt: STARTED_AT,
     uptimeSeconds: Math.round(process.uptime()),
     stripeConfigured: Boolean(process.env.STRIPE_SECRET_KEY),
+    stripeWebhookConfigured: Boolean(STRIPE_WEBHOOK_SECRET),
+    publicAppUrl: PUBLIC_APP_URL,
     pricesConfigured: {
       plus: Boolean(PRICE_IDS.plus),
       family: Boolean(PRICE_IDS.family)
@@ -91,10 +96,14 @@ function sendHealth(response, headOnly = false) {
   }, headOnly);
 }
 
-async function readRequestJson(request) {
+async function readRequestBody(request) {
   const chunks = [];
   for await (const chunk of request) chunks.push(chunk);
-  const body = Buffer.concat(chunks).toString("utf8");
+  return Buffer.concat(chunks);
+}
+
+async function readRequestJson(request) {
+  const body = (await readRequestBody(request)).toString("utf8");
   return body ? JSON.parse(body) : {};
 }
 
@@ -124,7 +133,8 @@ async function updateStore(mutator) {
 
 function publicAccount(account) {
   if (!account) return null;
-  return account;
+  const { password, ...safeAccount } = account;
+  return safeAccount;
 }
 
 function makeTrialDates() {
@@ -134,6 +144,92 @@ function makeTrialDates() {
     trialStartedAt: trialStartedAt.toISOString(),
     trialEndsAt: trialEndsAt.toISOString()
   };
+}
+
+function getPlanFromPrice(priceId) {
+  return Object.entries(PRICE_IDS).find(([, value]) => value && value === priceId)?.[0] || null;
+}
+
+function getHeader(request, headerName) {
+  const exact = request.headers[headerName];
+  if (exact) return exact;
+  return request.headers[headerName.toLowerCase()];
+}
+
+function parseStripeSignature(signatureHeader) {
+  return String(signatureHeader || "")
+    .split(",")
+    .map((part) => part.split("="))
+    .reduce((parsed, [key, value]) => {
+      if (!key || !value) return parsed;
+      parsed[key] = parsed[key] || [];
+      parsed[key].push(value);
+      return parsed;
+    }, {});
+}
+
+function secureCompareHex(leftHex, rightHex) {
+  try {
+    const left = Buffer.from(leftHex, "hex");
+    const right = Buffer.from(rightHex, "hex");
+    return left.length === right.length && timingSafeEqual(left, right);
+  } catch {
+    return false;
+  }
+}
+
+function verifyStripeSignature(rawBody, signatureHeader) {
+  if (!STRIPE_WEBHOOK_SECRET) {
+    return { ok: false, status: 503, error: "Stripe webhook secret is not configured." };
+  }
+
+  const parsed = parseStripeSignature(signatureHeader);
+  const timestamp = parsed.t?.[0];
+  const signatures = parsed.v1 || [];
+
+  if (!timestamp || !signatures.length) {
+    return { ok: false, status: 400, error: "Missing Stripe webhook timestamp or signature." };
+  }
+
+  const timestampSeconds = Number(timestamp);
+  const ageSeconds = Math.abs(Math.floor(Date.now() / 1000) - timestampSeconds);
+  if (!Number.isFinite(timestampSeconds) || ageSeconds > 300) {
+    return { ok: false, status: 400, error: "Stripe webhook timestamp is outside tolerance." };
+  }
+
+  const expected = createHmac("sha256", STRIPE_WEBHOOK_SECRET)
+    .update(`${timestamp}.`)
+    .update(rawBody)
+    .digest("hex");
+
+  const matched = signatures.some((signature) => secureCompareHex(expected, signature));
+  return matched ? { ok: true } : { ok: false, status: 400, error: "Stripe webhook signature verification failed." };
+}
+
+function findAccountForStripe(store, { email, customerId, subscriptionId }) {
+  const normalizedEmail = String(email || "").trim().toLowerCase();
+  return store.accounts.find((account) =>
+    (normalizedEmail && account.email === normalizedEmail) ||
+    (customerId && account.stripeCustomerId === customerId) ||
+    (subscriptionId && account.stripeSubscriptionId === subscriptionId)
+  );
+}
+
+function applySubscriptionToAccount(account, updates) {
+  if (!account) return null;
+  if (updates.plan) account.plan = updates.plan;
+  if (updates.status) account.subscriptionStatus = updates.status;
+  if (updates.customerId) account.stripeCustomerId = updates.customerId;
+  if (updates.subscriptionId) account.stripeSubscriptionId = updates.subscriptionId;
+  if (updates.currentPeriodEnd) account.currentPeriodEnd = updates.currentPeriodEnd;
+  if (updates.trialEndsAt) account.trialEndsAt = updates.trialEndsAt;
+  if (updates.cancelAtPeriodEnd !== undefined) account.cancelAtPeriodEnd = updates.cancelAtPeriodEnd;
+  account.lastStripeEventAt = new Date().toISOString();
+  return account;
+}
+
+function periodDateFromStripe(seconds) {
+  return seconds ? new Date(seconds * 1000).toISOString() : null;
 }
 
 async function signup(request, response) {
@@ -254,6 +350,9 @@ async function createCheckoutSession(request, response) {
   }
 
   const origin = request.headers.origin || `http://localhost:${PORT}`;
+  const account = email
+    ? (await readStore()).accounts.find((item) => item.email === String(email || "").trim().toLowerCase())
+    : null;
   const body = new URLSearchParams({
     mode: "subscription",
     "line_items[0][price]": priceId,
@@ -261,7 +360,12 @@ async function createCheckoutSession(request, response) {
     success_url: `${origin}/dashboard.html?checkout=success`,
     cancel_url: `${origin}/dashboard.html?checkout=cancelled`,
     allow_promotion_codes: "true",
-    billing_address_collection: "auto"
+    billing_address_collection: "auto",
+    client_reference_id: account?.id || String(email || ""),
+    "metadata[plan]": plan,
+    "metadata[email]": email || "",
+    "subscription_data[metadata][plan]": plan,
+    "subscription_data[metadata][email]": email || ""
   });
 
   if (email) body.set("customer_email", email);
@@ -286,6 +390,161 @@ async function createCheckoutSession(request, response) {
   sendJson(response, 200, { url: payload.url, id: payload.id });
 }
 
+async function createCustomerPortalSession(request, response) {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    sendJson(response, 200, { url: "/dashboard.html?portal=demo-mode" });
+    return;
+  }
+
+  const { email } = await readRequestJson(request);
+  const store = await readStore();
+  const account = store.accounts.find((item) => item.email === String(email || "").trim().toLowerCase());
+
+  if (!account?.stripeCustomerId) {
+    sendJson(response, 400, { error: "This account does not have a Stripe customer yet. Start a subscription first." });
+    return;
+  }
+
+  const origin = request.headers.origin || PUBLIC_APP_URL;
+  const body = new URLSearchParams({
+    customer: account.stripeCustomerId,
+    return_url: `${origin}/dashboard.html?portal=return`
+  });
+
+  const stripeResponse = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+      "Stripe-Version": STRIPE_API_VERSION,
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body
+  });
+
+  const payload = await stripeResponse.json();
+
+  if (!stripeResponse.ok) {
+    sendJson(response, stripeResponse.status, { error: payload.error?.message || "Stripe portal failed." });
+    return;
+  }
+
+  sendJson(response, 200, { url: payload.url, id: payload.id });
+}
+
+async function updateAccountFromStripeEvent(event) {
+  const object = event.data?.object || {};
+
+  if (event.type === "checkout.session.completed") {
+    const email = object.customer_details?.email || object.customer_email || object.metadata?.email;
+    const customerId = typeof object.customer === "string" ? object.customer : object.customer?.id;
+    const subscriptionId = typeof object.subscription === "string" ? object.subscription : object.subscription?.id;
+    const plan = ["plus", "family"].includes(object.metadata?.plan) ? object.metadata.plan : "plus";
+
+    await updateStore((store) => {
+      const account = findAccountForStripe(store, { email, customerId, subscriptionId });
+      if (account) {
+        applySubscriptionToAccount(account, {
+          plan,
+          status: "active",
+          customerId,
+          subscriptionId
+        });
+      }
+      store.events.unshift({
+        type: "stripe.checkout.completed",
+        email,
+        customerId,
+        subscriptionId,
+        createdAt: new Date().toISOString()
+      });
+      return account;
+    });
+    return;
+  }
+
+  if (event.type.startsWith("customer.subscription.")) {
+    const customerId = typeof object.customer === "string" ? object.customer : object.customer?.id;
+    const subscriptionId = object.id;
+    const priceId = object.items?.data?.[0]?.price?.id;
+    const metadataPlan = ["plus", "family"].includes(object.metadata?.plan) ? object.metadata.plan : null;
+    const plan = metadataPlan || getPlanFromPrice(priceId);
+    const status = event.type === "customer.subscription.deleted" ? "canceled" : object.status;
+
+    await updateStore((store) => {
+      const account = findAccountForStripe(store, { customerId, subscriptionId, email: object.metadata?.email });
+      if (account) {
+        applySubscriptionToAccount(account, {
+          plan,
+          status,
+          customerId,
+          subscriptionId,
+          currentPeriodEnd: periodDateFromStripe(object.current_period_end),
+          trialEndsAt: periodDateFromStripe(object.trial_end),
+          cancelAtPeriodEnd: Boolean(object.cancel_at_period_end)
+        });
+      }
+      store.events.unshift({
+        type: `stripe.${event.type}`,
+        email: account?.email || object.metadata?.email || null,
+        customerId,
+        subscriptionId,
+        status,
+        createdAt: new Date().toISOString()
+      });
+      return account;
+    });
+    return;
+  }
+
+  if (event.type === "invoice.payment_succeeded" || event.type === "invoice.payment_failed") {
+    const customerId = typeof object.customer === "string" ? object.customer : object.customer?.id;
+    const subscriptionId = typeof object.subscription === "string" ? object.subscription : object.subscription?.id;
+    const status = event.type === "invoice.payment_succeeded" ? "active" : "past_due";
+
+    await updateStore((store) => {
+      const account = findAccountForStripe(store, { customerId, subscriptionId, email: object.customer_email });
+      if (account) {
+        applySubscriptionToAccount(account, {
+          status,
+          customerId,
+          subscriptionId
+        });
+      }
+      store.events.unshift({
+        type: `stripe.${event.type}`,
+        email: account?.email || object.customer_email || null,
+        customerId,
+        subscriptionId,
+        status,
+        createdAt: new Date().toISOString()
+      });
+      return account;
+    });
+  }
+}
+
+async function handleStripeWebhook(request, response) {
+  const rawBody = await readRequestBody(request);
+  const signature = getHeader(request, "stripe-signature");
+  const verification = verifyStripeSignature(rawBody, signature);
+
+  if (!verification.ok) {
+    sendJson(response, verification.status, { error: verification.error });
+    return;
+  }
+
+  let event;
+  try {
+    event = JSON.parse(rawBody.toString("utf8"));
+  } catch {
+    sendJson(response, 400, { error: "Invalid Stripe webhook JSON." });
+    return;
+  }
+
+  await updateAccountFromStripeEvent(event);
+  sendJson(response, 200, { received: true, type: event.type });
+}
+
 async function serveStatic(request, response, headOnly = false) {
   const url = new URL(request.url, `http://localhost:${PORT}`);
   const requestedPath = url.pathname === "/" ? "/index.html" : decodeURIComponent(url.pathname);
@@ -299,7 +558,10 @@ async function serveStatic(request, response, headOnly = false) {
 
   try {
     const file = await readFile(normalized);
-    response.writeHead(200, { "Content-Type": MIME_TYPES[extname(normalized)] || "application/octet-stream" });
+    response.writeHead(200, {
+      "Content-Type": MIME_TYPES[extname(normalized)] || "application/octet-stream",
+      "Cache-Control": "no-store"
+    });
     if (!headOnly) {
       response.end(file);
     } else {
@@ -347,6 +609,16 @@ createServer(async (request, response) => {
 
     if (request.method === "POST" && request.url === "/api/create-checkout-session") {
       await createCheckoutSession(request, response);
+      return;
+    }
+
+    if (request.method === "POST" && request.url === "/api/create-customer-portal-session") {
+      await createCustomerPortalSession(request, response);
+      return;
+    }
+
+    if (request.method === "POST" && request.url === "/api/stripe/webhook") {
+      await handleStripeWebhook(request, response);
       return;
     }
 
