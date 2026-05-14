@@ -9,6 +9,7 @@ const BACKEND_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = normalize(join(BACKEND_DIR, ".."));
 const DATA_DIR = normalize(join(ROOT, "data"));
 const STORE_PATH = normalize(join(DATA_DIR, "ghostshift-store.json"));
+const EXTENSION_ZIP_PATH = normalize(join(ROOT, "GhostShift-Chrome-Edge-Extension.zip"));
 const STRIPE_API_VERSION = "2026-02-25.clover";
 const env = (key) => process.env[key]?.trim();
 const STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET");
@@ -574,6 +575,27 @@ async function serveStatic(request, response, headOnly = false) {
   }
 }
 
+async function downloadExtensionZip(response, headOnly = false) {
+  try {
+    const file = await readFile(EXTENSION_ZIP_PATH);
+    response.writeHead(200, {
+      "Content-Type": "application/zip",
+      "Content-Disposition": 'attachment; filename="GhostShift-Chrome-Edge-Extension.zip"',
+      "Content-Length": file.length,
+      "Cache-Control": "no-store"
+    });
+    if (!headOnly) {
+      response.end(file);
+    } else {
+      response.end();
+    }
+  } catch {
+    sendJson(response, 404, {
+      error: "Extension ZIP is missing from this deployment. Use the extension-chrome-edge folder with Load unpacked."
+    }, headOnly);
+  }
+}
+
 createServer(async (request, response) => {
   try {
     const headOnly = request.method === "HEAD";
@@ -585,6 +607,11 @@ createServer(async (request, response) => {
 
     if ((request.method === "GET" || headOnly) && request.url === "/api/extension-config") {
       sendJson(response, 200, EXTENSION_CONFIG, headOnly);
+      return;
+    }
+
+    if ((request.method === "GET" || headOnly) && request.url === "/downloads/ghostshift-extension.zip") {
+      await downloadExtensionZip(response, headOnly);
       return;
     }
 
