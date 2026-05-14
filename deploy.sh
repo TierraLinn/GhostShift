@@ -35,9 +35,11 @@ echo "📝 Step 1: Creating backend .env file..."
 cat > GhostShift/backend/.env << EOF
 # GhostShift Production .env
 PORT=8787
+PUBLIC_APP_URL=$PROD_URL
 
 # Stripe Configuration (leave empty to use demo mode)
 # STRIPE_SECRET_KEY=sk_test_your_key_here
+# STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
 # STRIPE_PRICE_PLUS=price_xxx
 # STRIPE_PRICE_FAMILY=price_xxx
 
@@ -61,10 +63,13 @@ echo ""
 echo "3. Connect to Railway.app or Render.com"
 echo "   See DEPLOYMENT_TODAY.md for full instructions"
 echo ""
-echo "4. Once deployed, update extension manifest:"
+echo "4. Add Stripe webhook endpoint:"
+echo "   https://$DOMAIN/api/stripe/webhook"
+echo ""
+echo "5. Once deployed, update extension manifest:"
 echo "   Edit: extension-chrome-edge/manifest.json"
 echo "   Add: \"https://$DOMAIN/*\""
 echo ""
-echo "5. Update extension config in Chrome:"
+echo "6. Update extension config in Chrome:"
 echo "   chrome://extensions > GhostShift > Details > Update"
 echo ""

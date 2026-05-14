@@ -61,7 +61,14 @@ Then verify the service:
 curl http://localhost:8787/api/health
 ```
 
-For production, add Stripe webhook handling, a real database, hosted auth, and HTTPS.
+For production, use HTTPS, configure Stripe webhooks, and replace the JSON store with a real database before scaling beyond early testers.
+
+Production launch checklist:
+
+- `LAUNCH_CHECKLIST_PRODUCTION.md`
+- `DEPLOYMENT_TODAY.md`
+- `store-assets/LISTING_COPY.md`
+- `GhostShift/mobile-app/NATIVE_BUILD_GUIDE.md`
 
 ## Mobile path
 

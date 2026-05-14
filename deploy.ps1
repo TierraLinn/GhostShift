@@ -39,9 +39,11 @@ Write-Host "📝 Step 1: Creating backend .env file..." -ForegroundColor Cyan
 $envContent = @"
 # GhostShift Production .env
 PORT=8787
+PUBLIC_APP_URL=$Url
 
 # Stripe Configuration (leave empty to use demo mode)
 # STRIPE_SECRET_KEY=sk_test_your_key_here
+# STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
 # STRIPE_PRICE_PLUS=price_xxx
 # STRIPE_PRICE_FAMILY=price_xxx
 
@@ -68,10 +70,13 @@ Write-Host ""
 Write-Host "3. Connect to Railway.app or Render.com" -ForegroundColor Gray
 Write-Host "   See DEPLOYMENT_TODAY.md for full instructions" -ForegroundColor DarkGray
 Write-Host ""
-Write-Host "4. Once deployed, update extension for live domain:" -ForegroundColor Gray
+Write-Host "4. Add Stripe webhook endpoint:" -ForegroundColor Gray
+Write-Host "   https://$domain/api/stripe/webhook" -ForegroundColor DarkGray
+Write-Host ""
+Write-Host "5. Once deployed, update extension for live domain:" -ForegroundColor Gray
 Write-Host "   Edit: extension-chrome-edge/manifest.json" -ForegroundColor DarkGray
 Write-Host "   Add to host_permissions: `"https://$domain/*`"" -ForegroundColor DarkGray
 Write-Host ""
-Write-Host "5. Reload extension in Chrome:" -ForegroundColor Gray
+Write-Host "6. Reload extension in Chrome:" -ForegroundColor Gray
 Write-Host "   chrome://extensions > GhostShift > Reload (⟳)" -ForegroundColor DarkGray
 Write-Host ""

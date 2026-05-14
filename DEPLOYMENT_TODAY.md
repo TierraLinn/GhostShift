@@ -79,6 +79,46 @@ const API_URL = "https://your-railway-url.railway.app";
 
 ---
 
+## Step 7: Stripe Webhook for Real Subscriptions
+
+In Stripe Workbench, create an HTTPS webhook endpoint:
+
+```text
+https://your-live-url/api/stripe/webhook
+```
+
+Add these events:
+
+- `checkout.session.completed`
+- `customer.subscription.created`
+- `customer.subscription.updated`
+- `customer.subscription.deleted`
+- `invoice.payment_succeeded`
+- `invoice.payment_failed`
+
+Copy the webhook signing secret into your host variables:
+
+```text
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
+
+Confirm production health:
+
+```text
+https://your-live-url/api/health
+```
+
+The response should show:
+
+```json
+{
+  "stripeConfigured": true,
+  "stripeWebhookConfigured": true
+}
+```
+
+---
+
 ## What Advisors Will See TODAY
 
 ✅ **Full signup flow** → Email/password → Dashboard
@@ -107,4 +147,3 @@ const API_URL = "https://your-railway-url.railway.app";
 - [ ] Replace JSON store with PostgreSQL (Supabase free)
 - [ ] Add real Firebase Auth (free)
 - [ ] Publish extension to Chrome Web Store
-
