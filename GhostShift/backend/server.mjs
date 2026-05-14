@@ -10,12 +10,13 @@ const ROOT = normalize(join(BACKEND_DIR, ".."));
 const DATA_DIR = normalize(join(ROOT, "data"));
 const STORE_PATH = normalize(join(DATA_DIR, "ghostshift-store.json"));
 const STRIPE_API_VERSION = "2026-02-25.clover";
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
-const PUBLIC_APP_URL = process.env.PUBLIC_APP_URL || process.env.APP_URL || `http://localhost:${PORT}`;
+const env = (key) => process.env[key]?.trim();
+const STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET");
+const PUBLIC_APP_URL = env("PUBLIC_APP_URL") || env("APP_URL") || `http://localhost:${PORT}`;
 
 const PRICE_IDS = {
-  plus: process.env.STRIPE_PRICE_PLUS,
-  family: process.env.STRIPE_PRICE_FAMILY
+  plus: env("STRIPE_PRICE_PLUS"),
+  family: env("STRIPE_PRICE_FAMILY")
 };
 
 const STARTED_AT = new Date().toISOString();
