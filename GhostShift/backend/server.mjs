@@ -205,7 +205,8 @@ function verifyStripeSignature(rawBody, signatureHeader) {
     .digest("hex");
 
   const matched = signatures.some((signature) => secureCompareHex(expected, signature));
-  return matched ? { ok:
+  return matched ? { ok: true } : { ok: false, error: "Stripe signature mismatch." };
+
 
 function findAccountForStripe(store, { email, customerId, subscriptionId }) {
   const normalizedEmail = String(email || "").trim().toLowerCase();
