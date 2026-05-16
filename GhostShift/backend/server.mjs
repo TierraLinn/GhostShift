@@ -498,11 +498,11 @@ async function updateAccountFromStripeEvent(event) {
     return;
   }
 
-  if (event.type === "invoice.payment_succeeded" || event.type === "invoice.payment.paid" || event.type === "invoice.payment_failed") {
+if (event.type === "invoice.payment_succeeded" || event.type === "invoice.payment.paid" || event.type === "invoice_payment.paid" || event.type === "invoice.payment_failed") {
 
     const customerId = typeof object.customer === "string" ? object.customer : object.customer?.id;
     const subscriptionId = typeof object.subscription === "string" ? object.subscription : object.subscription?.id;
-    const status = event.type === "invoice.payment_succeeded" ? "active" : "past_due";
+const status = event.type === "invoice.payment_failed" ? "past_due" : "active";
 
     await updateStore((store) => {
       const account = findAccountForStripe(store, { customerId, subscriptionId, email: object.customer_email });
