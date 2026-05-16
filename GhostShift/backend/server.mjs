@@ -469,7 +469,9 @@ async function updateAccountFromStripeEvent(event) {
     const plan = ["plus", "family"].includes(object.metadata?.plan) ? object.metadata.plan : "plus";
 
     await updateStore((store) => {
-      const account = findAccountForStripe(store, { email, customerId, subscriptionId });
+           const account = ensureAccountForStripe(store, { email, customerId, subscriptionId, plan });
+ 
+
       if (account) {
         applySubscriptionToAccount(account, {
           plan,
@@ -499,7 +501,7 @@ async function updateAccountFromStripeEvent(event) {
     const status = event.type === "customer.subscription.deleted" ? "canceled" : object.status;
 
     await updateStore((store) => {
-      const account = findAccountForStripe(store, { customerId, subscriptionId, email: object.metadata?.email });
+const account = ensureAccountForStripe(store, { customerId, subscriptionId, email: object.metadata?.email, plan });
       if (account) {
         applySubscriptionToAccount(account, {
           plan,
@@ -531,8 +533,8 @@ if (event.type === "invoice.payment_succeeded" || event.type === "invoice.paymen
 const status = event.type === "invoice.payment_failed" ? "past_due" : "active";
 
     await updateStore((store) => {
-      const account = findAccountForStripe(store, { customerId, subscriptionId, email: object.customer_email });
-      if (account) {
+    const account = ensureAccountForStripe(store, { customerId, subscriptionId, email: object.customer_email });
+  if (account) {
         applySubscriptionToAccount(account, {
           status,
           customerId,
