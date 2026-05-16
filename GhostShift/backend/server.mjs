@@ -209,17 +209,22 @@ function verifyStripeSignature(rawBody, signatureHeader) {
 }
 
 
-function findAccountForStripe(store, { email, customerId, subscriptionId }) {
+function function findAccountForStripe(store, { email, customerId, subscriptionId, accountId }) {
+
   const normalizedEmail = String(email || "").trim().toLowerCase();
   return store.accounts.find((account) =>
     (normalizedEmail && account.email === normalizedEmail) ||
-    (customerId && account.stripeCustomerId === customerId) ||
+    (subscriptionId && account.stripeSubscriptionId === subscriptionId) ||
+(accountId && account.id === accountId)
+
     (subscriptionId && account.stripeSubscriptionId === subscriptionId)
   );
 }
-function ensureAccountForStripe(store, { email, customerId, subscriptionId, plan = "plus" }) {
+function ensureAccountForStripe(store, { email, customerId, subscriptionId, accountId, plan = "plus" }) {
+
   const normalizedEmail = String(email || "").trim().toLowerCase();
-  let account = findAccountForStripe(store, { email: normalizedEmail, customerId, subscriptionId });
+let account = findAccountForStripe(store, { email: normalizedEmail, customerId, subscriptionId, accountId });
+
 
   if (!account && normalizedEmail) {
     account = {
@@ -471,8 +476,8 @@ async function updateAccountFromStripeEvent(event) {
     const plan = ["plus", "family"].includes(object.metadata?.plan) ? object.metadata.plan : "plus";
 
     await updateStore((store) => {
-           const account = ensureAccountForStripe(store, { email, customerId, subscriptionId, plan });
- 
+           const account = ensureAccountForStripe(store, { email, customerId, subscriptionId, accountId: object.client_reference_id, plan });
+
 
       if (account) {
         applySubscriptionToAccount(account, {
