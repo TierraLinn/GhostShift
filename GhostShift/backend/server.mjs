@@ -209,17 +209,16 @@ function verifyStripeSignature(rawBody, signatureHeader) {
 }
 
 
-function function findAccountForStripe(store, { email, customerId, subscriptionId, accountId }) {
-
+function findAccountForStripe(store, { email, customerId, subscriptionId, accountId }) {
   const normalizedEmail = String(email || "").trim().toLowerCase();
   return store.accounts.find((account) =>
     (normalizedEmail && account.email === normalizedEmail) ||
+    (customerId && account.stripeCustomerId === customerId) ||
     (subscriptionId && account.stripeSubscriptionId === subscriptionId) ||
-(accountId && account.id === accountId)
-
-    (subscriptionId && account.stripeSubscriptionId === subscriptionId)
+    (accountId && account.id === accountId)
   );
 }
+
 function ensureAccountForStripe(store, { email, customerId, subscriptionId, accountId, plan = "plus" }) {
 
   const normalizedEmail = String(email || "").trim().toLowerCase();
