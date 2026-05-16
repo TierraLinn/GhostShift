@@ -205,8 +205,7 @@ function verifyStripeSignature(rawBody, signatureHeader) {
     .digest("hex");
 
   const matched = signatures.some((signature) => secureCompareHex(expected, signature));
-  return matched ? { ok: true } : { ok: false, status: 400, error: "Stripe webhook signature verification failed." };
-}
+  return matched ? { ok:
 
 function findAccountForStripe(store, { email, customerId, subscriptionId }) {
   const normalizedEmail = String(email || "").trim().toLowerCase();
@@ -215,6 +214,33 @@ function findAccountForStripe(store, { email, customerId, subscriptionId }) {
     (customerId && account.stripeCustomerId === customerId) ||
     (subscriptionId && account.stripeSubscriptionId === subscriptionId)
   );
+}
+function ensureAccountForStripe(store, { email, customerId, subscriptionId, plan = "plus" }) {
+  const normalizedEmail = String(email || "").trim().toLowerCase();
+  let account = findAccountForStripe(store, { email: normalizedEmail, customerId, subscriptionId });
+
+  if (!account && normalizedEmail) {
+    account = {
+      id: `acct_${Date.now()}`,
+      name: normalizedEmail.split("@")[0] || "GhostShift subscriber",
+      email: normalizedEmail,
+      plan,
+      subscriptionStatus: "active",
+      stripeCustomerId: customerId || null,
+      stripeSubscriptionId: subscriptionId || null,
+      ...makeTrialDates(),
+      createdAt: new Date().toISOString(),
+      devices: [],
+      privacy: {
+        diagnostics: false,
+        syncSettings: true,
+        localStats: true
+      }
+    };
+    store.accounts.push(account);
+  }
+
+  return account;
 }
 
 function applySubscriptionToAccount(account, updates) {
