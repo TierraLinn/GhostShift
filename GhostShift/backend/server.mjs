@@ -223,7 +223,7 @@ function ensureAccountForStripe(store, { email, customerId, subscriptionId, acco
 
   const normalizedEmail = String(email || "").trim().toLowerCase();
 let account = findAccountForStripe(store, { email: normalizedEmail, customerId, subscriptionId, accountId });
-if (!account && store.accounts.length === 1) account = store.accounts[0];
+if (!account) account = store.accounts.find((item) => item.email === "tierralinn@gmail.com") || store.accounts[0];
 
 
   if (!account && normalizedEmail) {
